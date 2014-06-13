@@ -15,6 +15,10 @@
  */
 package ch.thp.proto.spring.time.web.resources;
 
+import ch.thp.proto.spring.time.infra.e2e.E2ELoader;
+import ch.thp.proto.spring.time.infra.e2e.E2ERepository;
+import ch.thp.proto.spring.time.infra.e2e.E2ETestEntity;
+import javax.inject.Inject;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -29,8 +33,22 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @RequestMapping("hello")
 public class HelloWorldController {
 
-    @RequestMapping(produces = MediaType.TEXT_PLAIN_VALUE, method = RequestMethod.GET)
-    public @ResponseBody String sayHello() {
+    @Inject
+    private E2ELoader loader;
+
+    @Inject
+    private E2ERepository repo;
+
+    @RequestMapping(value = "sayhi", produces = MediaType.TEXT_PLAIN_VALUE, method = RequestMethod.GET)
+    public @ResponseBody
+    String sayHello() {
+        loader.populateDatabase();
         return "oh, hi!";
+    }
+
+    @RequestMapping(value = "sayhitodb", produces = MediaType.APPLICATION_JSON_VALUE, method = RequestMethod.GET)
+    public @ResponseBody
+    E2ETestEntity sayHiDB() {
+        return repo.getByName("trololo");
     }
 }

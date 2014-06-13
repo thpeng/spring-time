@@ -21,6 +21,7 @@
     </properties>
     <modules>
         <module>spring-time-web</module>
+        <module>spring-time-infrastructure</module>
     </modules>
     <dependencyManagement>
         <dependencies>
@@ -46,11 +47,21 @@
                 <artifactId>eclipselink</artifactId>
                 <version>2.5.1</version>
             </dependency>
+            <dependency>
+                <groupId>org.springframework.data</groupId>
+                <artifactId>spring-data-jpa</artifactId>
+                <version>1.5.2.RELEASE</version>
+            </dependency>
             <!-- app server => servet-only-->
             <dependency>
                 <groupId>javax.servlet</groupId>
                 <artifactId>javax.servlet-api</artifactId>
                 <version>3.1.0</version>
+            </dependency>
+            <dependency>
+                <groupId>javax</groupId>
+                <artifactId>javaee-web-api</artifactId>
+                <version>7.0</version>
             </dependency>
             
             <!-- spring -->
@@ -88,6 +99,7 @@
                 <artifactId>spring-orm</artifactId>
                 <version>${spring.version}</version>
             </dependency>
+            
 
             <!--logging definitions -->
             <dependency>
@@ -125,7 +137,12 @@
                 <artifactId>jackson-databind</artifactId>
                 <version>2.3.0</version>
             </dependency>
-            
+            <!-- intermodule dependencies-->
+            <dependency>
+                <groupId>ch.thp.proto</groupId>
+                <artifactId>spring-time-infra</artifactId>
+                <version>${project.version}</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
     <build>
