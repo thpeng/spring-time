@@ -18,20 +18,21 @@ package ch.thp.proto.spring.time.infra.config;
 import java.util.Properties;
 import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
-import org.h2.jdbcx.JdbcDataSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.EnableMBeanExport;
 import org.springframework.core.env.Environment;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseBuilder;
+import static org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseType.H2;
 import org.springframework.jdbc.datasource.init.DataSourceInitializer;
 import org.springframework.jdbc.datasource.init.DatabasePopulator;
 import org.springframework.jdbc.datasource.init.ResourceDatabasePopulator;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
-import org.springframework.orm.jpa.vendor.EclipseLinkJpaDialect;
-import org.springframework.orm.jpa.vendor.EclipseLinkJpaVendorAdapter;
+import org.springframework.orm.jpa.vendor.HibernateJpaDialect;
+import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
@@ -45,13 +46,13 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @EnableMBeanExport
 public class DatabaseConfig {
 
-    private static final String H2_IN_MEMORY_DB = "jdbc:h2:mem:test;DB_CLOSE_DELAY=-1";
+    private static final String H2_IN_MEMORY_DB = "jdbc:h2:mem:sample;DB_CLOSE_DELAY=-1";
     
 
 
     @Bean
     public DataSource dataSource(Environment env) throws Exception {
-        return createH2DataSource();
+        return  new EmbeddedDatabaseBuilder().setType(H2).build();
     }
 
     @Autowired
@@ -75,15 +76,6 @@ public class DatabaseConfig {
         return populator;
     }
 
-    private DataSource createH2DataSource() {
-        JdbcDataSource ds = new JdbcDataSource();
-        ds.setURL(H2_IN_MEMORY_DB);
-        ds.setUser("sa");
-        ds.setPassword("");
-
-        return ds;
-    }
-
     @Bean
     public PlatformTransactionManager transactionManager(EntityManagerFactory entityManagerFactory) {
         JpaTransactionManager transactionManager = new JpaTransactionManager();
@@ -94,8 +86,7 @@ public class DatabaseConfig {
     @Bean
     public LocalContainerEntityManagerFactoryBean entityManagerFactory(Environment env) throws Exception {
 
-        EclipseLinkJpaVendorAdapter vendorAdapter = new EclipseLinkJpaVendorAdapter();
-        vendorAdapter.setGenerateDdl(Boolean.TRUE);
+        HibernateJpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
         vendorAdapter.setShowSql(Boolean.TRUE);
 
         LocalContainerEntityManagerFactoryBean factory = new LocalContainerEntityManagerFactoryBean();
@@ -110,20 +101,17 @@ public class DatabaseConfig {
     }
 
     @Bean
-    public EclipseLinkJpaDialect eclipseLinkJpaDialect() {
-        return new EclipseLinkJpaDialect();
+    public HibernateJpaDialect hibernateJpaDialect() {
+        return new HibernateJpaDialect();
     }
 
     Properties jpaProperties() {
         Properties props = new Properties();
-//        props.put("eclipselink.ddl-generation", "drop-and-create-tables");
-        props.put("eclipselink.create-ddl-jdbc-file-name", "createDDL_ddlGeneration.jdbc");
-        props.put("eclipselink.drop-ddl-jdbc-file-name", "dropDDL_ddlGeneration.jdbc");
-        props.put("eclipselink.ddl-generation.output-mode", "both");
-        props.put("eclipselink.weaving", "static");
-//        props.put("eclipselink.logging.parameters", "true");
-//        props.put("eclipselink.logging.level.sql", "FINE");
-
+        //jpa 2.1 compliant ddl generation
+        props.put("javax.persistence.schema-generation.database.action", "create");
+        props.put("javax.persistence.schema-generation.scripts.action", "drop-and-create");
+        props.put("javax.persistence.schema-generation.scripts.drop-target", "target/mydrop.ddl");
+        props.put("javax.persistence.schema-generation.scripts.create-target", "target/mycreate.ddl");
         return props;
     }
 }

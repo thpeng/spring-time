@@ -9,6 +9,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.Type;
 
 /*
  * Copyright 2014 caleb.
@@ -35,7 +36,7 @@ import lombok.NoArgsConstructor;
 public class E2ETestEntity {
 
     public E2ETestEntity(String aNameYes, LocalDate aBirthDay) {
-        this.aNameYes = aNameYes;
+        this.aName = aNameYes;
         this.aBirthDay = aBirthDay;
     }
 
@@ -43,9 +44,9 @@ public class E2ETestEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    private String aNameYes;
+    private String aName;
 
-    @Temporal(TemporalType.DATE)
+    @Type(type = "org.jadira.usertype.dateandtime.threeten.PersistentLocalDate")
     private LocalDate aBirthDay;
 
 }

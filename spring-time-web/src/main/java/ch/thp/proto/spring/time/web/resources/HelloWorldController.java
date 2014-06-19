@@ -42,13 +42,13 @@ public class HelloWorldController {
     @RequestMapping(value = "sayhi", produces = MediaType.TEXT_PLAIN_VALUE, method = RequestMethod.GET)
     public @ResponseBody
     String sayHello() {
-        loader.populateDatabase();
+       
         return "oh, hi!";
     }
 
-    @RequestMapping(value = "sayhitodb", produces = MediaType.APPLICATION_JSON_VALUE, method = RequestMethod.GET)
-    public @ResponseBody
-    E2ETestEntity sayHiDB() {
+    @RequestMapping(headers = "Content-Type=application/json",value = "sayhitodb", produces = MediaType.APPLICATION_JSON_VALUE, method = RequestMethod.GET)
+    public @ResponseBody E2ETestEntity sayHiDB() {
+         loader.populateDatabase();
         return repo.getByName("trololo");
     }
 }
