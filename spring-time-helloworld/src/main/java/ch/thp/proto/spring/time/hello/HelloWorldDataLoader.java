@@ -13,16 +13,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package ch.thp.proto.spring.time.infra.e2e;
+package ch.thp.proto.spring.time.hello;
 
+import ch.thp.proto.spring.time.infra.e2e.HelloWorld;
 import java.time.LocalDate;
-import javax.annotation.PostConstruct;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import org.springframework.beans.factory.InitializingBean;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
+import ch.thp.proto.spring.time.infra.dataloader.DataLoader; 
 
 /**
  *
@@ -30,15 +30,16 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @Component
 @Lazy(false)
-public class E2ELoader{
+public class HelloWorldDataLoader implements DataLoader{
     
     @PersistenceContext
     private EntityManager em; 
     
 
     @Transactional
+    @Override
     public void load() {
-         E2ETestEntity entityOne = new E2ETestEntity("trololo", LocalDate.now());
+         HelloWorld entityOne = new HelloWorld("trololo", LocalDate.now());
         em.persist(entityOne);
     }
 

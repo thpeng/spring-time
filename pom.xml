@@ -20,8 +20,9 @@
         <spring.version>4.0.4.RELEASE</spring.version> 
     </properties>
     <modules>
-        <module>spring-time-web</module>
         <module>spring-time-infrastructure</module>
+        <module>spring-time-helloworld</module>
+        <module>spring-time-web</module>
     </modules>
     <dependencyManagement>
         <dependencies>
@@ -147,6 +148,11 @@
             <dependency>
                 <groupId>ch.thp.proto</groupId>
                 <artifactId>spring-time-infra</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>ch.thp.proto</groupId>
+                <artifactId>spring-time-helloworld</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <!--support for jsr 310 datatypes for hibernate -->

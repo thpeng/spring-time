@@ -19,12 +19,10 @@ package ch.thp.proto.spring.time.web.config;
 
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.FilterType;
-import org.springframework.stereotype.Controller;
 
 /**
  * Base spring configuration. Will load all other configurations
- * @author caleb
+ * @author thpeng
  */
 @Configuration
 //@ComponentScan(basePackages = "ch.thp.proto",excludeFilters={@ComponentScan.Filter(value = Controller.class), @ComponentScan.Filter(type = FilterType.ASSIGNABLE_TYPE ,value = SpringMVCRestConfig.class)})

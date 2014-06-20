@@ -14,18 +14,12 @@
  * limitations under the License.
  */
 
-package ch.thp.proto.spring.time.infra.e2e;
-
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
+package ch.thp.proto.spring.time.infra.dataloader;
 
 /**
  *
  * @author caleb
  */
-
-public interface E2ERepository extends JpaRepository<E2ETestEntity,Integer> {
-
-    @Query("select e from E2ETestEntity e where e.aName = ?1 ")
-    public E2ETestEntity getByName( String name);
+public interface DataLoader {
+    void load(); 
 }

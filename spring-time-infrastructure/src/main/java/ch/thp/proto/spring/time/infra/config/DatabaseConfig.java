@@ -15,19 +15,15 @@
  */
 package ch.thp.proto.spring.time.infra.config;
 
-import ch.thp.proto.spring.time.infra.e2e.E2ELoader;
-import ch.thp.proto.spring.time.infra.e2e.E2ETestEntity;
-import java.time.LocalDate;
+import ch.thp.proto.spring.time.infra.dataloader.DataLoader;
+import java.util.List;
 import java.util.Properties;
-import javax.persistence.EntityManager;
+import javax.inject.Inject;
 import javax.persistence.EntityManagerFactory;
-import javax.persistence.PersistenceContext;
 import javax.sql.DataSource;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.EnableMBeanExport;
-import org.springframework.context.annotation.Profile;
 import org.springframework.core.env.Environment;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseBuilder;
@@ -41,7 +37,6 @@ import org.springframework.orm.jpa.vendor.HibernateJpaDialect;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
-import org.springframework.transaction.annotation.Transactional;
 
 /**
  *
@@ -49,7 +44,7 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @Configuration
 @EnableTransactionManagement
-@EnableJpaRepositories(basePackages = "ch.thp.proto.spring.time.infra.e2e")
+@EnableJpaRepositories(basePackages = "ch.thp.proto.spring.time")
 @EnableMBeanExport
 public class DatabaseConfig {
 
@@ -58,16 +53,19 @@ public class DatabaseConfig {
         return  new EmbeddedDatabaseBuilder().setType(H2).build();
     }
 
-    @Autowired
+    @Inject
     @Bean
-    public DataSourceInitializer dataSourceInitializer(final DataSource dataSource, E2ELoader loader) {
+    public DataSourceInitializer dataSourceInitializer(final DataSource dataSource, List<DataLoader> loaders) {
 
         final DataSourceInitializer initializer = new DataSourceInitializer();
         initializer.setDataSource(dataSource);
         initializer.setDatabasePopulator(databasePopulator());
         initializer.setDatabaseCleaner(databaseCleaner());
         
-        loader.load();
+        for(DataLoader loader : loaders)
+        {
+            loader.load();
+        }
         return initializer;
     }
 
@@ -97,7 +95,7 @@ public class DatabaseConfig {
         LocalContainerEntityManagerFactoryBean factory = new LocalContainerEntityManagerFactoryBean();
         factory.setPersistenceUnitName("sample");
         factory.setJpaVendorAdapter(vendorAdapter);
-        factory.setPackagesToScan("ch.thp.proto.spring.time.infra.e2e");
+        factory.setPackagesToScan("ch.thp.proto.spring.time");
         factory.setDataSource(dataSource(env));
 
         factory.setJpaProperties(jpaProperties());

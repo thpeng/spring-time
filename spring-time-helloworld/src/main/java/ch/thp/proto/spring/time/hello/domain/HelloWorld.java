@@ -5,8 +5,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.Type;
@@ -33,9 +31,9 @@ import org.hibernate.annotations.Type;
 @Data
 @NoArgsConstructor()
 @Entity
-public class E2ETestEntity {
+public class HelloWorld {
 
-    public E2ETestEntity(String aNameYes, LocalDate aBirthDay) {
+    public HelloWorld(String aNameYes, LocalDate aBirthDay) {
         this.aName = aNameYes;
         this.aBirthDay = aBirthDay;
     }
