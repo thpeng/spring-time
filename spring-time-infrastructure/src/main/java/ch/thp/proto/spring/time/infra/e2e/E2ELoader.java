@@ -19,6 +19,8 @@ import java.time.LocalDate;
 import javax.annotation.PostConstruct;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import org.springframework.beans.factory.InitializingBean;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -27,14 +29,16 @@ import org.springframework.transaction.annotation.Transactional;
  * @author thierry
  */
 @Component
-public class E2ELoader {
+@Lazy(false)
+public class E2ELoader{
     
     @PersistenceContext
     private EntityManager em; 
     
+
     @Transactional
-    public void populateDatabase() {
-        E2ETestEntity entityOne = new E2ETestEntity("trololo", LocalDate.now());
+    public void load() {
+         E2ETestEntity entityOne = new E2ETestEntity("trololo", LocalDate.now());
         em.persist(entityOne);
     }
 

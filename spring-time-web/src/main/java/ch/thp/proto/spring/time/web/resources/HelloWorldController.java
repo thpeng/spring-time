@@ -15,7 +15,6 @@
  */
 package ch.thp.proto.spring.time.web.resources;
 
-import ch.thp.proto.spring.time.infra.e2e.E2ELoader;
 import ch.thp.proto.spring.time.infra.e2e.E2ERepository;
 import ch.thp.proto.spring.time.infra.e2e.E2ETestEntity;
 import javax.inject.Inject;
@@ -33,8 +32,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @RequestMapping("hello")
 public class HelloWorldController {
 
-    @Inject
-    private E2ELoader loader;
 
     @Inject
     private E2ERepository repo;
@@ -46,9 +43,8 @@ public class HelloWorldController {
         return "oh, hi!";
     }
 
-    @RequestMapping(headers = "Content-Type=application/json",value = "sayhitodb", produces = MediaType.APPLICATION_JSON_VALUE, method = RequestMethod.GET)
+    @RequestMapping(value = "sayhitodb", produces = MediaType.APPLICATION_JSON_VALUE, method = RequestMethod.GET)
     public @ResponseBody E2ETestEntity sayHiDB() {
-         loader.populateDatabase();
         return repo.getByName("trololo");
     }
 }

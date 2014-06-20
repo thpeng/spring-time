@@ -15,13 +15,19 @@
  */
 package ch.thp.proto.spring.time.infra.config;
 
+import ch.thp.proto.spring.time.infra.e2e.E2ELoader;
+import ch.thp.proto.spring.time.infra.e2e.E2ETestEntity;
+import java.time.LocalDate;
 import java.util.Properties;
+import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.PersistenceContext;
 import javax.sql.DataSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.EnableMBeanExport;
+import org.springframework.context.annotation.Profile;
 import org.springframework.core.env.Environment;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseBuilder;
@@ -35,6 +41,7 @@ import org.springframework.orm.jpa.vendor.HibernateJpaDialect;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  *
@@ -46,10 +53,6 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @EnableMBeanExport
 public class DatabaseConfig {
 
-    private static final String H2_IN_MEMORY_DB = "jdbc:h2:mem:sample;DB_CLOSE_DELAY=-1";
-    
-
-
     @Bean
     public DataSource dataSource(Environment env) throws Exception {
         return  new EmbeddedDatabaseBuilder().setType(H2).build();
@@ -57,12 +60,14 @@ public class DatabaseConfig {
 
     @Autowired
     @Bean
-    public DataSourceInitializer dataSourceInitializer(final DataSource dataSource) {
+    public DataSourceInitializer dataSourceInitializer(final DataSource dataSource, E2ELoader loader) {
 
         final DataSourceInitializer initializer = new DataSourceInitializer();
         initializer.setDataSource(dataSource);
         initializer.setDatabasePopulator(databasePopulator());
         initializer.setDatabaseCleaner(databaseCleaner());
+        
+        loader.load();
         return initializer;
     }
 
