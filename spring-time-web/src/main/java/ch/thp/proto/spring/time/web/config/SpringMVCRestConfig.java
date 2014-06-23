@@ -13,7 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package ch.thp.proto.spring.time.web.config;
 
 import java.util.List;
@@ -30,14 +29,15 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 @Configuration
 @EnableWebMvc
 public class SpringMVCRestConfig extends WebMvcConfigurerAdapter {
+
     @Override
-    public void configureMessageConverters( List<HttpMessageConverter<?>> converters ) {
+    public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
         converters.add(converter());
     }
 
     @Bean
     MappingJackson2HttpMessageConverter converter() {
-        MappingJackson2HttpMessageConverter converter = new MappingJackson2HttpMessageConverter(); 
-        return converter; 
+        MappingJackson2HttpMessageConverter converter = new MappingJackson2HttpMessageConverter();
+        return converter;
     }
 }

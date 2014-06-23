@@ -50,7 +50,7 @@ public class DatabaseConfig {
 
     @Bean
     public DataSource dataSource(Environment env) throws Exception {
-        return  new EmbeddedDatabaseBuilder().setType(H2).build();
+        return new EmbeddedDatabaseBuilder().setType(H2).build();
     }
 
     @Inject
@@ -61,11 +61,10 @@ public class DatabaseConfig {
         initializer.setDataSource(dataSource);
         initializer.setDatabasePopulator(databasePopulator());
         initializer.setDatabaseCleaner(databaseCleaner());
-        
-        for(DataLoader loader : loaders)
-        {
+
+        loaders.stream().forEach((loader) -> {
             loader.load();
-        }
+        });
         return initializer;
     }
 

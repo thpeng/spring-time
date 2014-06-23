@@ -1,5 +1,5 @@
 /*
- * Copyright 2014 caleb.
+ * Copyright 2014 Thierry.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,18 +13,22 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package ch.thp.proto.spring.time.hello.domain;
+package ch.thp.proto.spring.time.user.domain;
 
-import ch.thp.proto.spring.time.infra.e2e.HelloWorld;
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
+import javax.persistence.Embeddable;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.AllArgsConstructor;
 
 /**
  *
- * @author caleb
+ * @author Thierry
  */
-public interface HelloWorldRepository extends JpaRepository<HelloWorld, Integer> {
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Embeddable
+public class UserId {
 
-    @Query("select e from HelloWorld e where e.aName = ?1 ")
-    public HelloWorld getByName(String name);
+    private String uuId;
 }

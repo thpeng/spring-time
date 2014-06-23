@@ -13,7 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package ch.thp.proto.spring.time.infra.dataloader;
 
 /**
@@ -21,5 +20,6 @@ package ch.thp.proto.spring.time.infra.dataloader;
  * @author caleb
  */
 public interface DataLoader {
-    void load(); 
+
+    void load();
 }

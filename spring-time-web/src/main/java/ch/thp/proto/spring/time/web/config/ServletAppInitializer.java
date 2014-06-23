@@ -25,8 +25,9 @@ import org.springframework.web.context.support.AnnotationConfigWebApplicationCon
 import org.springframework.web.servlet.DispatcherServlet;
 
 /**
- * Based on: http://kielczewski.eu/2013/11/spring-mvc-without-web-xml-using-webapplicationinitializer/
- * 
+ * Based on:
+ * http://kielczewski.eu/2013/11/spring-mvc-without-web-xml-using-webapplicationinitializer/
+ *
  * @author caleb
  */
 public class ServletAppInitializer implements WebApplicationInitializer {

@@ -22,7 +22,7 @@ import javax.persistence.PersistenceContext;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
-import ch.thp.proto.spring.time.infra.dataloader.DataLoader; 
+import ch.thp.proto.spring.time.infra.dataloader.DataLoader;
 
 /**
  *
@@ -30,16 +30,15 @@ import ch.thp.proto.spring.time.infra.dataloader.DataLoader;
  */
 @Component
 @Lazy(false)
-public class HelloWorldDataLoader implements DataLoader{
-    
+public class HelloWorldDataLoader implements DataLoader {
+
     @PersistenceContext
-    private EntityManager em; 
-    
+    private EntityManager em;
 
     @Transactional
     @Override
     public void load() {
-         HelloWorld entityOne = new HelloWorld("trololo", LocalDate.now());
+        HelloWorld entityOne = new HelloWorld("trololo", LocalDate.now());
         em.persist(entityOne);
     }
 

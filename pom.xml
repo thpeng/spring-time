@@ -18,10 +18,13 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <arquillian.version>1.1.2.Final</arquillian.version>
         <spring.version>4.0.4.RELEASE</spring.version> 
+        <spring.sec.version>4.0.0.M1</spring.sec.version>
     </properties>
     <modules>
         <module>spring-time-infrastructure</module>
         <module>spring-time-helloworld</module>
+        <module>spring-time-user</module>
+        <module>spring-time-stamp</module>
         <module>spring-time-web</module>
     </modules>
     <dependencyManagement>
@@ -106,6 +109,16 @@
                 <artifactId>spring-orm</artifactId>
                 <version>${spring.version}</version>
             </dependency>
+            <dependency>
+                <groupId>org.springframework.security</groupId>
+                <artifactId>spring-security-web</artifactId>
+                <version>${spring.sec.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.security</groupId>
+                <artifactId>spring-security-config</artifactId>
+                <version>${spring.sec.version}</version>
+            </dependency>
             
 
             <!--logging definitions -->
@@ -153,6 +166,12 @@
             <dependency>
                 <groupId>ch.thp.proto</groupId>
                 <artifactId>spring-time-helloworld</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+        
+            <dependency>
+                <groupId>ch.thp.proto</groupId>
+                <artifactId>spring-time-user</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <!--support for jsr 310 datatypes for hibernate -->
@@ -221,5 +240,17 @@
                 </plugin>
             </plugins>
         </pluginManagement>
+        
     </build>
+    <repositories>
+        <!-- needed for spring security milestone release -->
+        <repository>
+            <id>spring-milestones</id>
+            <name>Spring Milestones</name>
+            <url>http://repo.spring.io/milestone</url>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </repository>
+    </repositories>
 </project>

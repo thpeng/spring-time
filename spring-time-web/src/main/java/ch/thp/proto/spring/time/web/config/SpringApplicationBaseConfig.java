@@ -14,7 +14,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package ch.thp.proto.spring.time.web.config;
 
 import org.springframework.context.annotation.ComponentScan;
@@ -22,12 +21,12 @@ import org.springframework.context.annotation.Configuration;
 
 /**
  * Base spring configuration. Will load all other configurations
+ *
  * @author thpeng
  */
 @Configuration
 //@ComponentScan(basePackages = "ch.thp.proto",excludeFilters={@ComponentScan.Filter(value = Controller.class), @ComponentScan.Filter(type = FilterType.ASSIGNABLE_TYPE ,value = SpringMVCRestConfig.class)})
 @ComponentScan(basePackages = "ch.thp.proto")
 public class SpringApplicationBaseConfig {
-
 
 }
