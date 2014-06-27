@@ -39,7 +39,6 @@ public class HelloWorldController {
     @RequestMapping(value = "sayhi", produces = MediaType.TEXT_PLAIN_VALUE, method = RequestMethod.GET)
     public @ResponseBody
     String sayHello() {
-
         return "oh, hi!";
     }
 
@@ -47,5 +46,12 @@ public class HelloWorldController {
     public @ResponseBody
     HelloWorld sayHiDB(@PathVariable("name") String name) {
         return repo.getByName(name);
+    }
+
+    @RequestMapping(value = "secure/sayhi", produces = MediaType.TEXT_PLAIN_VALUE, method = RequestMethod.GET)
+    public @ResponseBody
+    String sayHelloSecure() {
+
+        return "oh, hi basic auth!";
     }
 }

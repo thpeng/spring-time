@@ -15,12 +15,25 @@
  */
 package ch.thp.proto.spring.time.web.config;
 
+import java.io.IOException;
+import static java.lang.StrictMath.log;
+import javax.persistence.Basic;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.ws.rs.core.HttpHeaders;
+import static javax.ws.rs.core.HttpHeaders.WWW_AUTHENTICATE;
+import static javax.ws.rs.core.Response.status;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.web.authentication.www.BasicAuthenticationEntryPoint;
+import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 
 /**
  * TODO link:
@@ -35,16 +48,29 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
         auth
                 .inMemoryAuthentication()
-                .withUser("ned").password("123").roles("USER");
+                .withUser("ned").password("123").roles("USER").and()
+                .withUser("arya").password("123").roles("ADMIN");
     }
 
+    @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http
+        http.antMatcher("/hello/secure/**")
                 .authorizeRequests()
                 .antMatchers("/hello/secure/**").hasRole("USER")
-                .antMatchers("/hello/sayhi/**", "/admin/**").permitAll()
-                .anyRequest().authenticated()
+//                .antMatchers("/hello/sayhi/**", "/admin/**").permitAll()
                 .and()
-                .httpBasic();
+                .httpBasic()
+                .and()
+                .addFilterBefore(
+                    new BasicAuthenticationFilter(authenticationManager(), new BasicJsonEntryPoint()),
+                    BasicAuthenticationFilter.class);
+    }
+    static class BasicJsonEntryPoint extends BasicAuthenticationEntryPoint {
+
+        @Override
+        public void commence(HttpServletRequest req, HttpServletResponse response, AuthenticationException e) throws IOException, ServletException {
+            response.addHeader( HttpHeaders.WWW_AUTHENTICATE, "/Basic realm='${getRealmName()}'");
+            response.setStatus(HttpStatus.UNAUTHORIZED.value());
+        }
     }
 }
