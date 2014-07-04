@@ -1,5 +1,5 @@
 /*
- * Copyright 2014 caleb.
+ * Copyright 2014 thpeng.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -28,7 +28,7 @@ import org.springframework.web.servlet.DispatcherServlet;
  * Based on:
  * http://kielczewski.eu/2013/11/spring-mvc-without-web-xml-using-webapplicationinitializer/
  *
- * @author caleb
+ * @author thpeng
  */
 public class ServletAppInitializer implements WebApplicationInitializer {
 
