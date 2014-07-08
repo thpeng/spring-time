@@ -1,5 +1,5 @@
 /*
- * Copyright 2014 caleb.
+ * Copyright 2014 thpeng.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,7 +21,7 @@ import org.springframework.data.jpa.repository.Query;
 
 /**
  *
- * @author caleb
+ * @author thpeng
  */
 public interface HelloWorldRepository extends JpaRepository<HelloWorld, Integer> {
 

@@ -1,5 +1,5 @@
 /*
- * Copyright 2014 caleb.
+ * Copyright 2014 thpeng.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@ package ch.thp.proto.spring.time.infra.dataloader;
 
 /**
  *
- * @author caleb
+ * @author thpeng
  */
 public interface DataLoader {
 
