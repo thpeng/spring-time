@@ -35,7 +35,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
  *
- * @author caleb
+ * @author thierry
  */
 @Controller
 @RequestMapping("secure/user")
@@ -49,7 +49,7 @@ public class UserController {
     
     @RequestMapping(value = "current", produces = MediaType.APPLICATION_JSON_VALUE, method = RequestMethod.GET)
     public @ResponseBody UserModel getCurrent(Principal princ)  {
-        
+        //not that nice, but we cannot obtain the authorities like the principal 
         return new UserModel(repo.getByLoginId(princ.getName()), SecurityContextHolder.getContext().getAuthentication().getAuthorities());
     }
     
