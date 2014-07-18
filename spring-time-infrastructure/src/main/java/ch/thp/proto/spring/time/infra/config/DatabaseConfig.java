@@ -114,6 +114,7 @@ public class DatabaseConfig {
         props.put("javax.persistence.schema-generation.scripts.action", "drop-and-create");
         props.put("javax.persistence.schema-generation.scripts.drop-target", "target/mydrop.ddl");
         props.put("javax.persistence.schema-generation.scripts.create-target", "target/mycreate.ddl");
+        props.put("hibernate.ejb.naming_strategy", "org.hibernate.cfg.ImprovedNamingStrategy");
         return props;
     }
 }

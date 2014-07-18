@@ -1,5 +1,5 @@
 /*
- * Copyright 2014 Thierry.
+ * Copyright 2014 caleb.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,30 +13,20 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package ch.thp.proto.spring.time.user.domain;
 
-import java.io.Serializable;
-import java.util.UUID;
-import javax.persistence.Column;
-import javax.persistence.Embeddable;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.AllArgsConstructor;
+package ch.thp.proto.spring.time.user;
+
+import ch.thp.proto.spring.time.user.domain.UserId;
+import ch.thp.proto.spring.time.user.domain.User;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 
 /**
- * typesafe identity of user, may be used between aggregates
- * @author Thierry
+ *
+ * @author thierry
  */
-@Data
-@AllArgsConstructor
-@Embeddable
-public class UserId implements Serializable{
-
-    @Column(name="ID")
-    private String uuId;
+public interface UserRepository extends JpaRepository<User, UserId>{    
     
-    public UserId()
-    {
-        uuId = UUID.randomUUID().toString();
-    }
+        @Query("select u from User u where u.loginId = ?1 ")
+        public User getByLoginId(String loginId);
 }

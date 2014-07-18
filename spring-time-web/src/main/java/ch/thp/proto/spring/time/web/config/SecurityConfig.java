@@ -49,17 +49,20 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         auth
                 .inMemoryAuthentication()
                 .withUser("ned").password("123").roles("USER").and()
-                .withUser("arya").password("123").roles("ADMIN");
+                .withUser("heisenberg").password("123").roles("USER").and()
+                .withUser("don").password("123").roles("ADMIN");
     }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.antMatcher("/hello/secure/**")
-                .authorizeRequests()
-                .antMatchers("/hello/secure/**").hasRole("USER")
-//                .antMatchers("/hello/sayhi/**", "/admin/**").permitAll()
+                    .authorizeRequests()
+                    .antMatchers("/hello/secure/**").hasRole("USER")
                 .and()
-                .httpBasic()
+                    .antMatcher("/secure/**").authorizeRequests()
+                    .antMatchers("/secure/**").hasRole("USER")
+                .and()
+                    .httpBasic()
                 .and()
                 .addFilterBefore(
                     new BasicAuthenticationFilter(authenticationManager(), new BasicJsonEntryPoint()),

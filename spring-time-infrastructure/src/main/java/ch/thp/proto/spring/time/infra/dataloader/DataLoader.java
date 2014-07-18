@@ -16,7 +16,7 @@
 package ch.thp.proto.spring.time.infra.dataloader;
 
 /**
- *
+ * Interface that should be implemented by each module which provides testdata
  * @author thpeng
  */
 public interface DataLoader {

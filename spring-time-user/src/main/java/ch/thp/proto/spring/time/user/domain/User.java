@@ -15,22 +15,28 @@
  */
 package ch.thp.proto.spring.time.user.domain;
 
+import java.io.Serializable;
 import javax.enterprise.inject.Vetoed;
+import javax.persistence.EmbeddedId;
+import javax.persistence.Entity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 /**
- *
+ * aggregate root
  * @author Thierry
  */
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Vetoed
-public class User {
+@Entity
+public class User implements Serializable{
 
+    @EmbeddedId
     private UserId userId;
+    private String loginId; 
     private String username;
     private String givenName;
     private String familyName;

@@ -42,16 +42,18 @@ public class SwaggerConfiguration {
 
     @Bean //Don't forget the @Bean annotation
     public SwaggerSpringMvcPlugin customImplementation() {
-        AbsoluteSwaggerPathProvider absolutePathProvider = new AbsoluteSwaggerPathProvider() {
-
-            @Override
-            public String getApplicationBasePath() {
-                return "http://localhost:8080/time-web/";
-            }
-
-        };
+//        AbsoluteSwaggerPathProvider absolutePathProvider = new AbsoluteSwaggerPathProvider() {
+//
+//            @Override
+//            public String getApplicationBasePath() {
+//                return "http://localhost:8080/time-web/";
+//            }
+//
+//        };
+//        return new SwaggerSpringMvcPlugin(this.springSwaggerConfig)
+//                .apiInfo(apiInfo()).pathProvider(absolutePathProvider);
         return new SwaggerSpringMvcPlugin(this.springSwaggerConfig)
-                .apiInfo(apiInfo()).pathProvider(absolutePathProvider);
+                .apiInfo(apiInfo());
     }
 
     private ApiInfo apiInfo() {

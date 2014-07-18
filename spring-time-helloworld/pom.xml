@@ -43,6 +43,7 @@
         <dependency>
             <groupId>javax</groupId>
             <artifactId>javaee-web-api</artifactId>
+            <scope>providded</scope>
         </dependency>
         <dependency>
             <groupId>org.jadira.usertype</groupId>
