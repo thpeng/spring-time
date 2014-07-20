@@ -15,7 +15,7 @@
  */
 package ch.thp.proto.spring.time.hello;
 
-import ch.thp.proto.spring.time.infra.e2e.HelloWorld;
+import ch.thp.proto.spring.time.hello.domain.HelloWorld;
 import java.time.LocalDate;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;

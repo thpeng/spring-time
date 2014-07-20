@@ -1,4 +1,4 @@
-package ch.thp.proto.spring.time.infra.e2e;
+package ch.thp.proto.spring.time.hello.domain;
 
 import java.time.LocalDate;
 import javax.persistence.Entity;
@@ -7,6 +7,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
 import org.hibernate.annotations.Type;
 
 /*
@@ -28,22 +30,20 @@ import org.hibernate.annotations.Type;
  *
  * @author thierry
  */
-@Data
+    @Data
 @NoArgsConstructor()
+@RequiredArgsConstructor
 @Entity
 public class HelloWorld {
-
-    public HelloWorld(String aNameYes, LocalDate aBirthDay) {
-        this.aName = aNameYes;
-        this.aBirthDay = aBirthDay;
-    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+    @NonNull
     private String aName;
 
+    @NonNull
     @Type(type = "org.jadira.usertype.dateandtime.threeten.PersistentLocalDate")
     private LocalDate aBirthDay;
 

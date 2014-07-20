@@ -15,10 +15,13 @@
  */
 package ch.thp.proto.spring.time.web.config;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.datatype.jsr310.JSR310Module;
 import java.util.List;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.converter.HttpMessageConverter;
+import org.springframework.http.converter.StringHttpMessageConverter;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
@@ -39,11 +42,19 @@ public class SpringMVCRestConfig extends WebMvcConfigurerAdapter {
     @Override
     public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
         converters.add(converter());
+        converters.add(new StringHttpMessageConverter()); //do not forget this one. else all plain-text responses will not work 
     }
 
     @Bean
     MappingJackson2HttpMessageConverter converter() {
         MappingJackson2HttpMessageConverter converter = new MappingJackson2HttpMessageConverter();
+        converter.setObjectMapper(register310TimeModule());
         return converter;
+    }
+
+    private ObjectMapper register310TimeModule() {
+        ObjectMapper obj = new ObjectMapper();
+        obj.registerModule(new JSR310Module());
+        return obj; 
     }
 }

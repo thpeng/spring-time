@@ -8,6 +8,7 @@ package ch.thp.proto.spring.time.stamp.domain;
 import ch.thp.proto.spring.time.user.domain.UserId;
 import java.time.Duration;
 import java.time.LocalDate;
+import javax.persistence.Embeddable;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -19,6 +20,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Embeddable
 public class TimesheetEntry {
 
     private String uuId;

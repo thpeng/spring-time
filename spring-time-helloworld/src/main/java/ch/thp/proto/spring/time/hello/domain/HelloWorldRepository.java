@@ -15,7 +15,6 @@
  */
 package ch.thp.proto.spring.time.hello.domain;
 
-import ch.thp.proto.spring.time.infra.e2e.HelloWorld;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 

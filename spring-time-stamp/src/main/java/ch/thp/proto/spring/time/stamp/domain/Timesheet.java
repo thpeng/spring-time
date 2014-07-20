@@ -16,22 +16,25 @@
 package ch.thp.proto.spring.time.stamp.domain;
 
 import java.io.Serializable;
+import java.util.List;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
 /**
  *
  * @author Thierry
  */
 @Entity
-@Getter
-@Setter
-public class Contract implements Serializable {
+@Data
+public class Timesheet implements Serializable {
 
     @Id
     private String uuId;
-    private String customer;
+    private double saldoGleitzeit; 
+    private double saldoFerien; 
+    @ElementCollection
+    private List<TimesheetEntry> timesheetEntries; 
 
 }
