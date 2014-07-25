@@ -7,6 +7,7 @@
 
     </head>
     <body>
+        <!-- navigation -->
         <div class="navbar">
             <div class="navbar-inner">
                 <div class="container">
@@ -36,16 +37,18 @@
         <div class="container" id="content" role="main" ui-view>
 
         </div>
-
+        <!-- frameworks before... -->
         <script src="js/external/angular.js"></script>
         <script src="js/external/angular-cookies.js"></script>
         <script src="js/external/angular-ui-router.js"></script>
         <script src="js/external/angular-local-storage.js"></script>
 
-
+        <!-- service modules before...-->
         <script src="js/app/services/authenticationService.js"></script>
         <script src="js/app/services/navigationHandlingService.js"></script>
-
+        
+        <!-- business modules before..-->
+        <!-- main scripts-->
         <script src="js/app/main.js"></script>
         <script src="js/app/controllers/login.js"></script>
         <script src="js/app/controllers/dashboard.js"></script>

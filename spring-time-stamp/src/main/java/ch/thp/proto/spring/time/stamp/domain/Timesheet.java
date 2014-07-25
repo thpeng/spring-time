@@ -15,11 +15,15 @@
  */
 package ch.thp.proto.spring.time.stamp.domain;
 
+import ch.thp.proto.spring.time.user.domain.UserId;
 import java.io.Serializable;
 import java.util.List;
-import javax.persistence.ElementCollection;
+import javax.persistence.AttributeOverride;
+import javax.persistence.Column;
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import lombok.Data;
 
 /**
@@ -32,9 +36,16 @@ public class Timesheet implements Serializable {
 
     @Id
     private String uuId;
+    
+    @Embedded
+    @AttributeOverride(name="uuId", column = @Column(name="USER_ID"))
+    private UserId userId;
+    
     private double saldoGleitzeit; 
+    
     private double saldoFerien; 
-    @ElementCollection
+    
+    @OneToMany
     private List<TimesheetEntry> timesheetEntries; 
 
 }

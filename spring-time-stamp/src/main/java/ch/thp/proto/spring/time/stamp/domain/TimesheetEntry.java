@@ -5,10 +5,10 @@
  */
 package ch.thp.proto.spring.time.stamp.domain;
 
-import ch.thp.proto.spring.time.user.domain.UserId;
 import java.time.Duration;
 import java.time.LocalDate;
-import javax.persistence.Embeddable;
+import javax.persistence.Entity;
+import javax.persistence.Id;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -20,13 +20,16 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Embeddable
+@Entity
 public class TimesheetEntry {
 
+    @Id
     private String uuId;
-    private UserId userId;
+    
     private Duration duration;
+    
     private LocalDate entryDate;
+    
     private String description;
 
 }

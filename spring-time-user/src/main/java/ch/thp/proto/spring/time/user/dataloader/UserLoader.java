@@ -19,7 +19,6 @@ package ch.thp.proto.spring.time.user.dataloader;
 import ch.thp.proto.spring.time.infra.dataloader.DataLoader;
 import ch.thp.proto.spring.time.user.domain.User;
 import ch.thp.proto.spring.time.user.domain.UserId;
-import java.time.LocalDate;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import org.springframework.stereotype.Component;

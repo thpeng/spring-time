@@ -16,14 +16,10 @@
 package ch.thp.proto.spring.time.web.config;
 
 import java.io.IOException;
-import static java.lang.StrictMath.log;
-import javax.persistence.Basic;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.ws.rs.core.HttpHeaders;
-import static javax.ws.rs.core.HttpHeaders.WWW_AUTHENTICATE;
-import static javax.ws.rs.core.Response.status;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpStatus;
