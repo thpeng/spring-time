@@ -37,6 +37,7 @@ public class SpringMVCRestConfig extends WebMvcConfigurerAdapter {
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("/swagger-ui/**").addResourceLocations("/swagger-ui/");
+        registry.addResourceHandler("/app/**").addResourceLocations("/app/");
     }
 
     @Override

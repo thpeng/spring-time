@@ -1,0 +1,53 @@
+<!doctype html>
+<html ng-app="time">
+    <head>
+        <title>Time</title>
+        <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css">
+        <link rel="icon" type="image/png" href="static/favicon.ico">
+
+    </head>
+    <body>
+        <div class="navbar">
+            <div class="navbar-inner">
+                <div class="container">
+                    <div class="row-fluid">
+                        <div class="col-md-8 navbar-brand">
+                            <span>Time Prototype</span>
+                        </div>
+
+                    </div>
+                    <div class="row-fluid">
+                        <div class="col-md-10 nav-collapse">
+                            <ul class="nav nav-pills" id="navigation-tabs">     <!-- id added here -->
+                                <li><a href="#/dashboard"><span class="glyphicon glyphicon-dashboard"></span>  Dashboard</a></li>   <!-- removed class='active' -->
+                                <li><a href="#/stamp"><span class="glyphicon glyphicon-time"></span>  Zeit erfassen</a></li>
+                                <li><a href="#/holiday"><span class="glyphicon glyphicon-picture"></span>  Absenzen</a></li>
+                                <li><a href="#/resporting"><span class="glyphicon glyphicon-list-alt"></span>  Reporting</a></li>
+                            </ul>
+                        </div>
+                        <div class="col-md-2">
+                            <div style="color: #FFFFFF; margin-top:10px;" class="pull-right">Revision 0.1</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Content -->
+        <div class="container" id="content" role="main" ui-view>
+
+        </div>
+
+        <script src="js/external/angular.js"></script>
+        <script src="js/external/angular-cookies.js"></script>
+        <script src="js/external/angular-ui-router.js"></script>
+        <script src="js/external/angular-local-storage.js"></script>
+
+
+        <script src="js/app/services/authenticationService.js"></script>
+        <script src="js/app/services/navigationHandlingService.js"></script>
+
+        <script src="js/app/main.js"></script>
+        <script src="js/app/controllers/login.js"></script>
+        <script src="js/app/controllers/dashboard.js"></script>
+    </body>
+</html>

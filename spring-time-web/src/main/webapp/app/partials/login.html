@@ -1,0 +1,37 @@
+<div class="row">
+    <div class="well col-md-7 main">
+        <form  class="form-horizontal" ng-submit="validate()">
+            <fieldset>
+                <legend>Login</legend>  
+                <div class="form-group">
+                    <label class="col-sm-3 control-label" for="inputEmail">email</label>
+                    <div class="col-sm-6">
+                        <input type="text" class="form-control" id="inputEmail"
+                               placeholder="user@example.com"
+                               autofocus ng-model="username" required>
+                    </div>
+                </div>
+                <div class="form-group">  
+                    <label class="col-sm-3 control-label" for="inputPassword">password</label>
+                    <div class="col-sm-6">
+                        <input type="password" class="form-control" id="inputPassword"                             
+                               ng-model="password">
+                    </div>
+                </div>
+                <div class="form-actions">  
+
+                    <button class="btn btn-lg btn-primary btn-block" type="submit" ng-click="login()" >
+                        Login
+                    </button>
+                </div>
+            </fieldset>
+        </form>
+    </div>
+    <div class="col-md-5 sidebar">
+        <div class="jumbotron">
+            <h1>Hello!</h1>
+            <h2></h2>
+            <p>Welcome in a exciting world built on <a href="http://www.angularjs.org">angular</a>, <a href="http://www.getbootstrap.com">bootstrap</a>, and a backend built on <a href="http://spring.io/">Spring</a>.</p>
+        </div>
+    </div>
+</div>

@@ -57,7 +57,7 @@ public class UserController {
     @AllArgsConstructor
     static class UserModel implements Serializable
     {
-        User currentUser; 
+        User user; 
         Collection<? extends GrantedAuthority> roles; 
         
     }
