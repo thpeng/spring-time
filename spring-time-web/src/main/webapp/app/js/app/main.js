@@ -1,4 +1,4 @@
-'use strict';
+     'use strict';
 /* Configuration of other Modules */
 angular.module('LocalStorageModule')
         .value('prefix', 'time')
