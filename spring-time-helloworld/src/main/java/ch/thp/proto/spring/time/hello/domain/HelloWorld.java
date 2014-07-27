@@ -31,7 +31,7 @@ import org.hibernate.annotations.Type;
 
 
 /**
- *
+ * simple entity with a database generated id, a string and a date.  
  * @author thierry
  */
 @Data

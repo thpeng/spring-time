@@ -19,7 +19,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
 /**
- *
+ * crudrepository and one search query. 
  * @author thpeng
  */
 public interface HelloWorldRepository extends JpaRepository<HelloWorld, Integer> {

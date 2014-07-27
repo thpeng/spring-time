@@ -18,6 +18,7 @@ package ch.thp.proto.spring.time.web.resources;
 import ch.thp.proto.spring.time.user.UserService;
 import ch.thp.proto.spring.time.user.domain.UserRepository;
 import ch.thp.proto.spring.time.user.domain.User;
+import ch.thp.proto.spring.time.user.domain.UserId;
 import java.io.Serializable;
 import java.security.Principal;
 import java.util.Collection;
@@ -29,6 +30,8 @@ import org.springframework.http.MediaType;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -54,9 +57,13 @@ public class UserController {
     public @ResponseBody List<User> getAllUser() {
         return service.getAllUser();
     }
+    @RequestMapping(value= "{id}", produces = MediaType.APPLICATION_JSON_VALUE, method = RequestMethod.GET)
+    public @ResponseBody User getOneUser(@PathVariable("id") String userId) {
+        return service.getuser(new UserId(userId));
+    }
     
     @RequestMapping(produces = MediaType.APPLICATION_JSON_VALUE, method = RequestMethod.POST)
-    public @ResponseBody User updateUser(User user) {
+    public @ResponseBody User updateUser(@RequestBody() User user) {
         return service.updateUser(user);
     }
 

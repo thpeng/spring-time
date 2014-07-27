@@ -54,9 +54,9 @@ public class HelloWorldController {
         return repo.getByName(name);
     }
     
-    @RequestMapping(value = "sayhitodb}", produces = MediaType.APPLICATION_JSON_VALUE, method = RequestMethod.GET)
+    @RequestMapping(value = "sayhitodb", produces = MediaType.APPLICATION_JSON_VALUE, method = RequestMethod.GET)
     public @ResponseBody
-    List<HelloWorld> getAll(@PathVariable("name") String name) {
+    List<HelloWorld> getAll() {
         return repo.findAll();
     }
     

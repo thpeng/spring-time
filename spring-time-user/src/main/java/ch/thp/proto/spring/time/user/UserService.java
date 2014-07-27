@@ -17,15 +17,17 @@
 package ch.thp.proto.spring.time.user;
 
 import ch.thp.proto.spring.time.user.domain.User;
+import ch.thp.proto.spring.time.user.domain.UserId;
 import ch.thp.proto.spring.time.user.domain.UserRepository;
 import java.util.List;
 import javax.inject.Inject;
+import org.springframework.security.access.prepost.PostAuthorize;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 
 /**
  * Service, including authorization checks. always use a service between the repo and your
- * controller. Else you may not add the security constraints
+ * controller. Else you cannot add the security constraints.
  * 
  * @author Thierry
  */
@@ -35,6 +37,7 @@ public class UserService {
     @Inject
     private UserRepository repo; 
     
+    @PreAuthorize("#id == principal.username or hasRole('ROLE_ADMIN')")
     public User getUserByLoginId(String id){
         return repo.getByLoginId(id);
     }
@@ -43,8 +46,12 @@ public class UserService {
     public List<User> getAllUser() {
         return repo.findAll(); 
     }
-    @PreAuthorize("#user.loginId == principal.name or hasRole('ROLE_ADMIN')")
-    public User updateUser(User user) {
-        return repo.save(user); 
+    @PreAuthorize("#timeUser.loginId == principal.username or hasRole('ROLE_ADMIN')")
+    public User updateUser(User timeUser) {
+        return repo.save(timeUser); 
+    }
+    @PostAuthorize("returnObject.loginId == principal.username or hasRole('ROLE_ADMIN')")
+    public User getuser(UserId id) {
+        return repo.findOne(id); 
     }
 }

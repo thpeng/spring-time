@@ -66,7 +66,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .addFilterBefore(
                     new BasicAuthenticationFilter(authenticationManager(), new BasicJsonEntryPoint()),
-                    BasicAuthenticationFilter.class);
+                    BasicAuthenticationFilter.class)
+                //todo: check the csrf capability with angularjs
+                .csrf().disable();
     }
     static class BasicJsonEntryPoint extends BasicAuthenticationEntryPoint {
 

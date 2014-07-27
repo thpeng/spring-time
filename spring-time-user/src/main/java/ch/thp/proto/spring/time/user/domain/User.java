@@ -38,8 +38,8 @@ public class User implements Serializable{
     @EmbeddedId
     private UserId userId;
     private String loginId; 
-    private String username;
     private String givenName;
     private String familyName;
+    private String email;
 
 }
