@@ -13,10 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package ch.thp.proto.spring.time.web.resources;
 
-import ch.thp.proto.spring.time.user.UserRepository;
+import ch.thp.proto.spring.time.user.UserService;
+import ch.thp.proto.spring.time.user.domain.UserRepository;
 import ch.thp.proto.spring.time.user.domain.User;
 import java.io.Serializable;
 import java.security.Principal;
@@ -40,25 +40,30 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Controller
 @RequestMapping("secure/user")
 public class UserController {
-    
-    
-    
+
     @Inject
-    private UserRepository repo; 
-    
-    
+    private UserService service;
+
     @RequestMapping(value = "current", produces = MediaType.APPLICATION_JSON_VALUE, method = RequestMethod.GET)
-    public @ResponseBody UserModel getCurrent(Principal princ)  {
-        //not that nice, but we cannot obtain the authorities like the principal 
-        return new UserModel(repo.getByLoginId(princ.getName()), SecurityContextHolder.getContext().getAuthentication().getAuthorities());
+    public @ResponseBody UserWithAuthoritiesModel getCurrentUserWithAuthorities(Principal princ) {
+        //not really beautiful, but we cannot obtain the authorities like the principal 
+        return new UserWithAuthoritiesModel(service.getUserByLoginId(princ.getName()), SecurityContextHolder.getContext().getAuthentication().getAuthorities());
+    }
+
+    @RequestMapping(produces = MediaType.APPLICATION_JSON_VALUE, method = RequestMethod.GET)
+    public @ResponseBody List<User> getAllUser() {
+        return service.getAllUser();
     }
     
+    @RequestMapping(produces = MediaType.APPLICATION_JSON_VALUE, method = RequestMethod.POST)
+    public @ResponseBody User updateUser(User user) {
+        return service.updateUser(user);
+    }
+
     @Data
     @AllArgsConstructor
-    static class UserModel implements Serializable
-    {
-        User user; 
-        Collection<? extends GrantedAuthority> roles; 
-        
+    static class UserWithAuthoritiesModel implements Serializable {
+        User user;
+        Collection<? extends GrantedAuthority> roles;
     }
 }

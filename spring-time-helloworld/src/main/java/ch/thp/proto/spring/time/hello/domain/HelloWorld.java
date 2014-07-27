@@ -1,16 +1,3 @@
-package ch.thp.proto.spring.time.hello.domain;
-
-import java.time.LocalDate;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.NonNull;
-import lombok.RequiredArgsConstructor;
-import org.hibernate.annotations.Type;
-
 /*
  * Copyright 2014 thpeng.
  *
@@ -26,14 +13,32 @@ import org.hibernate.annotations.Type;
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+package ch.thp.proto.spring.time.hello.domain;
+
+import java.time.LocalDate;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
+import org.hibernate.annotations.Type;
+
+
 /**
  *
  * @author thierry
  */
-    @Data
+@Data
 @NoArgsConstructor()
 @RequiredArgsConstructor
 @Entity
+@Table(uniqueConstraints = {@UniqueConstraint(columnNames = {"aName"},name = "unique_aname")})
 public class HelloWorld {
 
     @Id

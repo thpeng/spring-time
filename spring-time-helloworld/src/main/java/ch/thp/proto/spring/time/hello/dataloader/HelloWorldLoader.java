@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package ch.thp.proto.spring.time.hello;
+package ch.thp.proto.spring.time.hello.dataloader;
 
 import ch.thp.proto.spring.time.hello.domain.HelloWorld;
 import java.time.LocalDate;
@@ -30,7 +30,7 @@ import ch.thp.proto.spring.time.infra.dataloader.DataLoader;
  */
 @Component
 @Lazy(false)
-public class HelloWorldDataLoader implements DataLoader {
+public class HelloWorldLoader implements DataLoader {
 
     @PersistenceContext
     private EntityManager em;
@@ -38,8 +38,10 @@ public class HelloWorldDataLoader implements DataLoader {
     @Transactional
     @Override
     public void load() {
-        HelloWorld entityOne = new HelloWorld("trololo", LocalDate.now());
+        HelloWorld entityOne = new HelloWorld("one", LocalDate.now());
+        HelloWorld entityTwo = new HelloWorld("two", LocalDate.now());
         em.persist(entityOne);
+        em.persist(entityTwo);
     }
 
 }

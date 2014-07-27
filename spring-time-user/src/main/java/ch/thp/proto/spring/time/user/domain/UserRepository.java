@@ -13,11 +13,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+package ch.thp.proto.spring.time.user.domain;
 
-package ch.thp.proto.spring.time.user;
-
-import ch.thp.proto.spring.time.user.domain.UserId;
-import ch.thp.proto.spring.time.user.domain.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
@@ -25,8 +22,8 @@ import org.springframework.data.jpa.repository.Query;
  *
  * @author thierry
  */
-public interface UserRepository extends JpaRepository<User, UserId>{    
-    
-        @Query("select u from User u where u.loginId = ?1 ")
-        public User getByLoginId(String loginId);
+public interface UserRepository extends JpaRepository<User, UserId> {
+
+    @Query("select u from User u where u.loginId = ?1 ")
+    public User getByLoginId(String loginId);
 }

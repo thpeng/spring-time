@@ -17,7 +17,11 @@
 package ch.thp.proto.spring.time.web.config;
 
 import org.springframework.security.web.context.AbstractSecurityWebApplicationInitializer;
-
+/**
+ * can't tell why this class is necessary. If not present, the security will not work. 
+ * The configuration is done in the SecurityConfig.
+ * @author Thierry
+ */
 public class SpringSecurityInitializer extends AbstractSecurityWebApplicationInitializer {
    //do nothing
 }

@@ -15,6 +15,7 @@
  */
 package ch.thp.proto.spring.time.stamp.domain;
 
+import ch.thp.proto.spring.time.user.domain.User;
 import ch.thp.proto.spring.time.user.domain.UserId;
 import java.io.Serializable;
 import java.util.List;
@@ -23,6 +24,7 @@ import javax.persistence.Column;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import lombok.Data;
 
@@ -39,6 +41,7 @@ public class Timesheet implements Serializable {
     
     @Embedded
     @AttributeOverride(name="uuId", column = @Column(name="USER_ID"))
+    @ManyToOne(targetEntity = User.class)
     private UserId userId;
     
     private double saldoGleitzeit; 

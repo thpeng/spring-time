@@ -16,8 +16,6 @@
 package ch.thp.proto.spring.time.web.config;
 
 import com.mangofactory.swagger.configuration.SpringSwaggerConfig;
-import com.mangofactory.swagger.paths.AbsoluteSwaggerPathProvider;
-import com.mangofactory.swagger.paths.SwaggerPathProvider;
 import org.springframework.context.annotation.Configuration;
 import com.mangofactory.swagger.plugin.EnableSwagger;
 import com.mangofactory.swagger.plugin.SwaggerSpringMvcPlugin;
@@ -42,16 +40,6 @@ public class SwaggerConfiguration {
 
     @Bean //Don't forget the @Bean annotation
     public SwaggerSpringMvcPlugin customImplementation() {
-//        AbsoluteSwaggerPathProvider absolutePathProvider = new AbsoluteSwaggerPathProvider() {
-//
-//            @Override
-//            public String getApplicationBasePath() {
-//                return "http://localhost:8080/time-web/";
-//            }
-//
-//        };
-//        return new SwaggerSpringMvcPlugin(this.springSwaggerConfig)
-//                .apiInfo(apiInfo()).pathProvider(absolutePathProvider);
         return new SwaggerSpringMvcPlugin(this.springSwaggerConfig)
                 .apiInfo(apiInfo());
     }
@@ -59,7 +47,7 @@ public class SwaggerConfiguration {
     private ApiInfo apiInfo() {
         ApiInfo apiInfo = new ApiInfo(
                 "Spring-Time",
-                "Spring based ",
+                "Spring based example application",
                 "My Apps API terms of service",
                 "My Apps API Contact Email",
                 "Apache License 2.0",

@@ -16,9 +16,10 @@
 package ch.thp.proto.spring.time.user.domain;
 
 import java.io.Serializable;
-import javax.enterprise.inject.Vetoed;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
+import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -30,8 +31,8 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Vetoed
 @Entity
+@Table(uniqueConstraints = {@UniqueConstraint(columnNames = {"loginId"},name = "unique_login_id_on_user")})
 public class User implements Serializable{
 
     @EmbeddedId

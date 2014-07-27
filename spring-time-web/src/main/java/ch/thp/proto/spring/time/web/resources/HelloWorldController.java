@@ -18,6 +18,7 @@ package ch.thp.proto.spring.time.web.resources;
 import ch.thp.proto.spring.time.hello.domain.HelloWorld;
 import ch.thp.proto.spring.time.hello.domain.HelloWorldRepository;
 import java.time.LocalDate;
+import java.util.List;
 import javax.inject.Inject;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -31,7 +32,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
- *
+ * almost complete REST example 
  * @author thpeng
  */
 @Controller
@@ -49,40 +50,50 @@ public class HelloWorldController {
 
     @RequestMapping(value = "sayhitodb/{name}", produces = MediaType.APPLICATION_JSON_VALUE, method = RequestMethod.GET)
     public @ResponseBody
-    HelloWorld sayHiDB(@PathVariable("name") String name) {
+    HelloWorld getOne(@PathVariable("name") String name) {
         return repo.getByName(name);
     }
-    @RequestMapping(value = "sayhitodb",consumes = MediaType.APPLICATION_JSON_VALUE,
-            produces = MediaType.APPLICATION_JSON_VALUE, method = RequestMethod.PUT)
-    public @ResponseBody HelloWorld create(@RequestBody() HelloWorldModel helloWorld) {
+    
+    @RequestMapping(value = "sayhitodb}", produces = MediaType.APPLICATION_JSON_VALUE, method = RequestMethod.GET)
+    public @ResponseBody
+    List<HelloWorld> getAll(@PathVariable("name") String name) {
+        return repo.findAll();
+    }
+    
+    @RequestMapping(value = "sayhitodb", produces = MediaType.APPLICATION_JSON_VALUE, method = RequestMethod.PUT)
+    public @ResponseBody HelloWorld createOne(@RequestBody() HelloWorldModel helloWorld) {
         return repo.save(new HelloWorld(helloWorld.getAName(), helloWorld.getABirthDay()));
     }
-    
+
     @RequestMapping(value = "sayhitodb", produces = MediaType.APPLICATION_JSON_VALUE, method = RequestMethod.POST)
     public @ResponseBody
-    HelloWorld update( @RequestBody() HelloWorld helloWorld) {
+    HelloWorld updateOne(@RequestBody() HelloWorld helloWorld) {
         return repo.save(helloWorld);
     }
-    
+
     @RequestMapping(value = "sayhitodb", produces = MediaType.APPLICATION_JSON_VALUE, method = RequestMethod.DELETE)
     public @ResponseBody
-    void delete( @RequestBody() HelloWorld helloWorld) {
+    void deleteOne(@RequestBody() HelloWorld helloWorld) {
         repo.delete(helloWorld);
     }
 
     @RequestMapping(value = "secure/sayhi", produces = MediaType.TEXT_PLAIN_VALUE, method = RequestMethod.GET)
     public @ResponseBody
-    String sayHelloSecure() {
-
+    String sayHelloWithAuth() {
         return "oh, hi basic auth!";
     }
+
     
+    /**
+     * not really necessary. only use to make a clear difference between the put and post operation 
+     * in conjunction with the 'save' method from spring-data
+     */
     @Data
     @AllArgsConstructor
     @NoArgsConstructor
-    public static class HelloWorldModel
-    {
-        private String aName; 
-        private LocalDate aBirthDay; 
+    public static class HelloWorldModel {
+
+        private String aName;
+        private LocalDate aBirthDay;
     }
 }

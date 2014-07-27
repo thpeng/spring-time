@@ -24,6 +24,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
@@ -32,12 +33,15 @@ import org.springframework.security.web.authentication.www.BasicAuthenticationEn
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 
 /**
- * TODO link:
+ * Security Config with inmemoryauthentication instead of tomcat-users mechanism. 
+ * Each user needs at least the role 'USER' which is mapped to 'ROLE_USER'.
+ * Authentication is done with basic auth. 
  *
  * @author thpeng
  */
 @Configuration
 @EnableWebSecurity
+@EnableGlobalMethodSecurity(jsr250Enabled = true, proxyTargetClass = true, securedEnabled = true,prePostEnabled=true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
@@ -46,7 +50,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .inMemoryAuthentication()
                 .withUser("ned").password("123").roles("USER").and()
                 .withUser("heisenberg").password("123").roles("USER").and()
-                .withUser("don").password("123").roles("ADMIN");
+                .withUser("don").password("123").roles("ADMIN", "USER");
     }
 
     @Override
