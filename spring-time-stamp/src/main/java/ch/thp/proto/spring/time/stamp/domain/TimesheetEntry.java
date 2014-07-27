@@ -12,6 +12,7 @@ import javax.persistence.Id;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.Type;
 
 /**
  *
@@ -26,9 +27,10 @@ public class TimesheetEntry {
     @Id
     private String uuId;
     
-    private Duration duration;
-    
+    @Type(type = "org.jadira.usertype.dateandtime.threeten.PersistentLocalDate")
     private LocalDate entryDate;
+    
+    private Duration duration;    
     
     private String description;
 

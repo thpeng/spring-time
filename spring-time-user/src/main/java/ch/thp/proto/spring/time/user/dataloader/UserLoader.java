@@ -30,6 +30,11 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @Component
 public class UserLoader implements DataLoader{
+    
+    public static final UserId USER_ID_NED = new UserId("1234");
+    public static final UserId USER_ID_HEISENBERG = new UserId("12345");
+    public static final UserId USER_ID_DON = new UserId("123456");
+    
 
     @PersistenceContext
     private EntityManager em;
@@ -37,9 +42,9 @@ public class UserLoader implements DataLoader{
     @Transactional
     @Override
     public void load() {
-        User ned = new User(new UserId(),"ned", "Eddard", "stark", "stark@winterfell.cold");
-        User heisenberg = new User(new UserId(),"heisenberg", "Walter", "White", "walter@breaking.bad");
-        User don = new User(new UserId(), "don", "Donald", "Draper", "don@sterlingcooper.com");
+        User ned = new User(USER_ID_NED,"ned", "Eddard", "stark", "stark@winterfell.cold");
+        User heisenberg = new User(USER_ID_HEISENBERG,"heisenberg", "Walter", "White", "walter@breaking.bad");
+        User don = new User(USER_ID_DON, "don", "Donald", "Draper", "don@sterlingcooper.com");
 
         em.persist(ned);
         em.persist(heisenberg);

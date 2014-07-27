@@ -27,7 +27,7 @@ import org.springframework.stereotype.Service;
 
 /**
  * Service, including authorization checks. always use a service between the repo and your
- * controller. Else you cannot add the security constraints.
+ * controller.
  * 
  * @author Thierry
  */

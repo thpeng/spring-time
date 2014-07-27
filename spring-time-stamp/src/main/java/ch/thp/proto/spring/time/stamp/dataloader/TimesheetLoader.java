@@ -13,13 +13,65 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package ch.thp.proto.spring.time.stamp.dataloader;
+
+import ch.thp.proto.spring.time.infra.dataloader.DataLoader;
+import ch.thp.proto.spring.time.stamp.domain.Timesheet;
+import ch.thp.proto.spring.time.stamp.domain.TimesheetEntry;
+import static ch.thp.proto.spring.time.user.dataloader.UserLoader.USER_ID_DON;
+import static ch.thp.proto.spring.time.user.dataloader.UserLoader.USER_ID_HEISENBERG;
+import static ch.thp.proto.spring.time.user.dataloader.UserLoader.USER_ID_NED;
+import ch.thp.proto.spring.time.user.domain.User;
+import java.time.Duration;
+import java.time.LocalDate;
+import java.util.HashSet;
+import java.util.Set;
+import java.util.UUID;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  *
  * @author Thierry
  */
-public class TimesheetLoader {
-    
+public class TimesheetLoader implements DataLoader {
+
+    @PersistenceContext
+    private EntityManager em;
+
+    @Transactional
+    @Override
+    public void load() {
+        Set<TimesheetEntry> entriesForNed = new HashSet<>();
+        entriesForNed.add(new TimesheetEntry(UUID.randomUUID().toString(), LocalDate.now().minusDays(1), Duration.ofHours(4),
+                "read something about genealogy. made a comment about the strange color of geoffreys baratheons hair."));
+        entriesForNed.add(new TimesheetEntry(UUID.randomUUID().toString(), LocalDate.now().minusDays(1), Duration.ofHours(2),
+                "inspected the wall. still white"));
+        entriesForNed.add(new TimesheetEntry(UUID.randomUUID().toString(), LocalDate.now().minusDays(1), Duration.ofHours(2),
+                "lost my head about something"));
+        Timesheet sheetNed = new Timesheet(UUID.randomUUID().toString(), USER_ID_NED, 24d, 0.8d, LocalDate.now().minusDays(1), entriesForNed);
+
+        Set<TimesheetEntry> entriesForHeisenberg = new HashSet<>();
+        entriesForHeisenberg.add(new TimesheetEntry(UUID.randomUUID().toString(), LocalDate.now().minusDays(1), Duration.ofHours(8),
+                "still cooking, what are you expecting?"));
+        entriesForHeisenberg.add(new TimesheetEntry(UUID.randomUUID().toString(), LocalDate.now().minusDays(2), Duration.ofHours(8),
+                "still cooking"));
+        entriesForHeisenberg.add(new TimesheetEntry(UUID.randomUUID().toString(), LocalDate.now().minusDays(3), Duration.ofHours(8),
+                "cooking"));
+        Timesheet sheetHeisenberg = new Timesheet(UUID.randomUUID().toString(), USER_ID_HEISENBERG, 100, 1.0d, LocalDate.now().minusDays(3), entriesForHeisenberg);
+
+        Set<TimesheetEntry> entriesForDon = new HashSet<>();
+        entriesForHeisenberg.add(new TimesheetEntry(UUID.randomUUID().toString(), LocalDate.now().minusDays(1), Duration.ofHours(8),
+                "made a witty comment about the usefullness of my minions"));
+        entriesForDon.add(new TimesheetEntry(UUID.randomUUID().toString(), LocalDate.now().minusDays(2), Duration.ofHours(4),
+                "fighting with betty"));
+        entriesForDon.add(new TimesheetEntry(UUID.randomUUID().toString(), LocalDate.now().minusDays(2), Duration.ofHours(10),
+                "made overtime. a lot"));
+        Timesheet sheetDon = new Timesheet(UUID.randomUUID().toString(), USER_ID_HEISENBERG, 100, 1.0d, LocalDate.now().minusDays(2), entriesForDon);
+
+        em.persist(sheetNed);
+        em.persist(sheetHeisenberg);
+        em.persist(sheetDon);
+    }
 }

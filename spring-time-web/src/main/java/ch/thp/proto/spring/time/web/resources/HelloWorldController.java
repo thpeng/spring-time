@@ -42,42 +42,42 @@ public class HelloWorldController {
     @Inject
     private HelloWorldRepository repo;
 
-    @RequestMapping(value = "sayhi", produces = "text/plain", method = RequestMethod.GET)
+    @RequestMapping( produces = "text/plain", method = RequestMethod.GET)
     public @ResponseBody
     String sayHello() {
         return "oh, hi!";
     }
 
-    @RequestMapping(value = "sayhitodb/{name}", produces = MediaType.APPLICATION_JSON_VALUE, method = RequestMethod.GET)
+    @RequestMapping(value = "db/{name}", produces = MediaType.APPLICATION_JSON_VALUE, method = RequestMethod.GET)
     public @ResponseBody
     HelloWorld getOne(@PathVariable("name") String name) {
         return repo.getByName(name);
     }
     
-    @RequestMapping(value = "sayhitodb", produces = MediaType.APPLICATION_JSON_VALUE, method = RequestMethod.GET)
+    @RequestMapping(value = "db", produces = MediaType.APPLICATION_JSON_VALUE, method = RequestMethod.GET)
     public @ResponseBody
     List<HelloWorld> getAll() {
         return repo.findAll();
     }
     
-    @RequestMapping(value = "sayhitodb", produces = MediaType.APPLICATION_JSON_VALUE, method = RequestMethod.PUT)
+    @RequestMapping(value = "db", produces = MediaType.APPLICATION_JSON_VALUE, method = RequestMethod.PUT)
     public @ResponseBody HelloWorld createOne(@RequestBody() HelloWorldModel helloWorld) {
         return repo.save(new HelloWorld(helloWorld.getAName(), helloWorld.getABirthDay()));
     }
 
-    @RequestMapping(value = "sayhitodb", produces = MediaType.APPLICATION_JSON_VALUE, method = RequestMethod.POST)
+    @RequestMapping(value = "db", produces = MediaType.APPLICATION_JSON_VALUE, method = RequestMethod.POST)
     public @ResponseBody
     HelloWorld updateOne(@RequestBody() HelloWorld helloWorld) {
         return repo.save(helloWorld);
     }
 
-    @RequestMapping(value = "sayhitodb", produces = MediaType.APPLICATION_JSON_VALUE, method = RequestMethod.DELETE)
+    @RequestMapping(value = "db", produces = MediaType.APPLICATION_JSON_VALUE, method = RequestMethod.DELETE)
     public @ResponseBody
     void deleteOne(@RequestBody() HelloWorld helloWorld) {
         repo.delete(helloWorld);
     }
 
-    @RequestMapping(value = "secure/sayhi", produces = MediaType.TEXT_PLAIN_VALUE, method = RequestMethod.GET)
+    @RequestMapping(value = "secure", produces = MediaType.TEXT_PLAIN_VALUE, method = RequestMethod.GET)
     public @ResponseBody
     String sayHelloWithAuth() {
         return "oh, hi basic auth!";

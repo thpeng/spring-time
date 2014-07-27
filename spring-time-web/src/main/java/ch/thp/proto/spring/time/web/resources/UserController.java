@@ -19,6 +19,8 @@ import ch.thp.proto.spring.time.user.UserService;
 import ch.thp.proto.spring.time.user.domain.UserRepository;
 import ch.thp.proto.spring.time.user.domain.User;
 import ch.thp.proto.spring.time.user.domain.UserId;
+import com.wordnik.swagger.annotations.Api;
+import com.wordnik.swagger.annotations.ApiOperation;
 import java.io.Serializable;
 import java.security.Principal;
 import java.util.Collection;
@@ -47,6 +49,7 @@ public class UserController {
     @Inject
     private UserService service;
 
+    @ApiOperation(value = "gets the current user with the associates authorities")
     @RequestMapping(value = "current", produces = MediaType.APPLICATION_JSON_VALUE, method = RequestMethod.GET)
     public @ResponseBody UserWithAuthoritiesModel getCurrentUserWithAuthorities(Principal princ) {
         //not really beautiful, but we cannot obtain the authorities like the principal 
