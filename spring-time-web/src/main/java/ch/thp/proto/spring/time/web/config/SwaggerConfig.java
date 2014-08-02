@@ -29,7 +29,7 @@ import org.springframework.context.annotation.Bean;
  */
 @Configuration
 @EnableSwagger
-public class SwaggerConfiguration {
+public class SwaggerConfig {
 
     private SpringSwaggerConfig springSwaggerConfig;
 

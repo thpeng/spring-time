@@ -14,18 +14,26 @@
  * limitations under the License.
  */
 
-package ch.thp.proto.spring.time.stamp.domain;
+package ch.thp.proto.spring.time.stamp;
 
-import ch.thp.proto.spring.time.user.domain.UserId;
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
+import ch.thp.proto.spring.time.stamp.domain.TimesheetEntry;
+import ch.thp.proto.spring.time.stamp.domain.TimesheetId;
+import java.util.Set;
+import javax.inject.Inject;
+import org.springframework.stereotype.Service;
 
 /**
  *
  * @author Thierry
  */
-public interface TimesheetRepository extends JpaRepository<Timesheet, TimesheetId>{
+@Service
+public class TimesheetEntryService {
     
-    @Query("select e from Timesheet e where e.userId = ?1 ")
-    public Timesheet getByUserId(UserId userId);
+    @Inject
+    private TimesheetService service; 
+    
+    //authorization done by the timesheetservice 
+    public Set<TimesheetEntry> getTimesheetByTimesheetId(TimesheetId id){
+        return service.getTimesheetByTimesheetId(id).getTimesheetEntries();
+    }
 }

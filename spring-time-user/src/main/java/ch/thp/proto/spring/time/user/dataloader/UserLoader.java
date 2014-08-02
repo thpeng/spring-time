@@ -1,5 +1,5 @@
 /*
- * Copyright 2014 caleb.
+ * Copyright 2014 thierry.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -25,16 +25,15 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
- *
- * @author caleb
+ * dataloader for the user. 
+ * @author thierry
  */
 @Component
 public class UserLoader implements DataLoader{
     
     public static final UserId USER_ID_NED = new UserId("1234");
     public static final UserId USER_ID_HEISENBERG = new UserId("12345");
-    public static final UserId USER_ID_DON = new UserId("123456");
-    
+    public static final UserId USER_ID_DON = new UserId("123456");   
 
     @PersistenceContext
     private EntityManager em;
@@ -50,8 +49,4 @@ public class UserLoader implements DataLoader{
         em.persist(heisenberg);
         em.persist(don);
     }
-
-    
-    
-    
 }

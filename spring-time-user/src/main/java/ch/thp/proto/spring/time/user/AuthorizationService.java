@@ -13,19 +13,24 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-package ch.thp.proto.spring.time.stamp.domain;
+package ch.thp.proto.spring.time.user;
 
 import ch.thp.proto.spring.time.user.domain.UserId;
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
+import ch.thp.proto.spring.time.user.domain.UserRepository;
+import javax.inject.Inject;
+import org.springframework.stereotype.Service;
 
 /**
- *
+ * additional Service to make more complex authorization checks. 
  * @author Thierry
  */
-public interface TimesheetRepository extends JpaRepository<Timesheet, TimesheetId>{
-    
-    @Query("select e from Timesheet e where e.userId = ?1 ")
-    public Timesheet getByUserId(UserId userId);
+@Service
+public class AuthorizationService {
+
+    @Inject
+    private UserRepository repo;
+
+    public boolean isPrincipalSameAsUser(String principalName, UserId id) {
+        return repo.findOne(id).getLoginId().equals(principalName);
+    }
 }

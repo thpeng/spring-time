@@ -19,23 +19,25 @@ import java.io.Serializable;
 import java.util.UUID;
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
-import lombok.Data;
 import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
 
 /**
  * typesafe identity of user, may be used between aggregates
+ *
  * @author Thierry
  */
-@Data
+@Getter
+@EqualsAndHashCode
 @AllArgsConstructor
 @Embeddable
-public class UserId implements Serializable{
+public class UserId implements Serializable {
 
-    @Column(name="ID")
+    @Column(name = "ID")
     private String uuId;
-    
-    public UserId()
-    {
+
+    public UserId() {
         uuId = UUID.randomUUID().toString();
     }
 }

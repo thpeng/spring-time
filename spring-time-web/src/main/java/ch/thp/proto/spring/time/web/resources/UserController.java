@@ -1,5 +1,5 @@
 /*
- * Copyright 2014 caleb.
+ * Copyright 2014 thierry.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,10 +16,8 @@
 package ch.thp.proto.spring.time.web.resources;
 
 import ch.thp.proto.spring.time.user.UserService;
-import ch.thp.proto.spring.time.user.domain.UserRepository;
 import ch.thp.proto.spring.time.user.domain.User;
 import ch.thp.proto.spring.time.user.domain.UserId;
-import com.wordnik.swagger.annotations.Api;
 import com.wordnik.swagger.annotations.ApiOperation;
 import java.io.Serializable;
 import java.security.Principal;
@@ -49,6 +47,7 @@ public class UserController {
     @Inject
     private UserService service;
 
+    //you may describe your endpoint with this annotation (feature from swagger)
     @ApiOperation(value = "gets the current user with the associates authorities")
     @RequestMapping(value = "current", produces = MediaType.APPLICATION_JSON_VALUE, method = RequestMethod.GET)
     public @ResponseBody UserWithAuthoritiesModel getCurrentUserWithAuthorities(Principal princ) {
@@ -60,6 +59,7 @@ public class UserController {
     public @ResponseBody List<User> getAllUser() {
         return service.getAllUser();
     }
+    
     @RequestMapping(value= "{id}", produces = MediaType.APPLICATION_JSON_VALUE, method = RequestMethod.GET)
     public @ResponseBody User getOneUser(@PathVariable("id") String userId) {
         return service.getuser(new UserId(userId));

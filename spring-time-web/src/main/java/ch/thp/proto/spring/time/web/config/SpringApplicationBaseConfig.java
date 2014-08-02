@@ -16,8 +16,11 @@
  */
 package ch.thp.proto.spring.time.web.config;
 
+import ch.thp.proto.spring.time.infra.config.DatabaseConfig;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Import;
+import org.springframework.context.annotation.ScopedProxyMode;
 
 /**
  * Base spring configuration. Will load all other configurations
@@ -25,8 +28,8 @@ import org.springframework.context.annotation.Configuration;
  * @author thpeng
  */
 @Configuration
-//@ComponentScan(basePackages = "ch.thp.proto",excludeFilters={@ComponentScan.Filter(value = Controller.class), @ComponentScan.Filter(type = FilterType.ASSIGNABLE_TYPE ,value = SpringMVCRestConfig.class)})
 @ComponentScan(basePackages = "ch.thp.proto")
+@Import({SecurityConfig.class, SwaggerConfig.class, DatabaseConfig.class, SpringMVCRestConfig.class})
 public class SpringApplicationBaseConfig {
 
 }

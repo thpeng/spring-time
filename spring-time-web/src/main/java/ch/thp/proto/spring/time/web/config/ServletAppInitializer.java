@@ -18,6 +18,7 @@ package ch.thp.proto.spring.time.web.config;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRegistration;
+import org.springframework.orm.hibernate4.support.OpenSessionInViewFilter;
 import org.springframework.web.WebApplicationInitializer;
 import org.springframework.web.context.ContextLoaderListener;
 import org.springframework.web.context.WebApplicationContext;

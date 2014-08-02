@@ -46,10 +46,12 @@ public class UserService {
     public List<User> getAllUser() {
         return repo.findAll(); 
     }
+    
     @PreAuthorize("#timeUser.loginId == principal.username or hasRole('ROLE_ADMIN')")
     public User updateUser(User timeUser) {
         return repo.save(timeUser); 
     }
+    
     @PostAuthorize("returnObject.loginId == principal.username or hasRole('ROLE_ADMIN')")
     public User getuser(UserId id) {
         return repo.findOne(id); 

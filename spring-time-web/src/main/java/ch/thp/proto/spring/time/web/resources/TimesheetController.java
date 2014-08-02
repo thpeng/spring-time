@@ -13,18 +13,73 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package ch.thp.proto.spring.time.web.resources;
 
+import ch.thp.proto.spring.time.stamp.TimesheetEntryService;
+import ch.thp.proto.spring.time.stamp.TimesheetService;
+import ch.thp.proto.spring.time.stamp.domain.Timesheet;
+import ch.thp.proto.spring.time.stamp.domain.TimesheetEntry;
+import ch.thp.proto.spring.time.stamp.domain.TimesheetId;
+import ch.thp.proto.spring.time.user.domain.UserId;
+import java.time.LocalDate;
+import java.util.Set;
+import javax.inject.Inject;
+import lombok.Data;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
  *
  * @author Thierry
  */
 @Controller
-@RequestMapping("timesheet")
+@RequestMapping("secure/timesheet")
+
 public class TimesheetController {
+
+    @Inject
+    private TimesheetService sheetService;
     
+    @Inject
+    private TimesheetEntryService entryService;
+
+    @RequestMapping( produces = MediaType.APPLICATION_JSON_VALUE, method = RequestMethod.GET)
+    public @ResponseBody
+    TimesheetOnlyModel getTimeSheetForUserId(@RequestParam(value = "user", required = true) String userId) {
+        return new TimesheetOnlyModel(sheetService.getTimesheetForUserId(new UserId(userId)));
+    }
+    
+    @Transactional //we need transactional here, because otherwise we cannot acces the lazy-loaded bag. 
+    @RequestMapping(value = "{id}/entry", produces = MediaType.APPLICATION_JSON_VALUE, method = RequestMethod.GET)
+    public @ResponseBody
+    Set<TimesheetEntry> getSheetEntries(@PathVariable(value = "id") String timesheetId) {
+        return sheetService.getTimesheetByTimesheetId(new TimesheetId(timesheetId)).getTimesheetEntries();
+    }
+
+    /**
+     * Timesheet without the Entry Set. 
+     */
+    @Data
+    private static class TimesheetOnlyModel {
+
+        private TimesheetId timesheetId;
+        private UserId userId;
+        private double saldoGleitzeit;
+        private double pensum;
+        private LocalDate dateOfJoiningTheCompany;
+
+        public TimesheetOnlyModel(Timesheet ts) {
+            this.timesheetId = ts.getTimesheetId();
+            this.userId = ts.getUserId();
+            this.saldoGleitzeit = ts.getSaldoGleitzeit();
+            this.pensum = ts.getPensum();
+            this.dateOfJoiningTheCompany = ts.getDateOfJoiningTheCompany();
+        }
+    }
 }

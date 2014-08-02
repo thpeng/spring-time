@@ -17,9 +17,13 @@
 package ch.thp.proto.spring.time.stamp;
 
 import ch.thp.proto.spring.time.stamp.domain.Timesheet;
+import ch.thp.proto.spring.time.stamp.domain.TimesheetEntry;
+import ch.thp.proto.spring.time.stamp.domain.TimesheetId;
 import ch.thp.proto.spring.time.stamp.domain.TimesheetRepository;
 import ch.thp.proto.spring.time.user.domain.UserId;
+import java.util.Set;
 import javax.inject.Inject;
+import org.springframework.security.access.prepost.PostAuthorize;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 
@@ -32,8 +36,16 @@ public class TimesheetService {
     
     @Inject
     private TimesheetRepository repo; 
-    @PreAuthorize("#id.uuId == principal.username or hasRole('ROLE_ADMIN')")
+    
+    //for non trivial authorization checks we need to use a authorization service
+    //Example, if you need to load the user from the database to perform the check. 
+    @PreAuthorize("@authorizationService.isPrincipalSameAsUser(principal.username, #id)")
     public Timesheet getTimesheetForUserId(UserId id){
-        return repo.getByUserId(id.getUuId());
+        return repo.getByUserId(id);
+    }
+    
+    @PostAuthorize("@authorizationService.isPrincipalSameAsUser(principal.username, returnObject.userId)")
+    public Timesheet getTimesheetByTimesheetId(TimesheetId id){
+        return repo.findOne(id);
     }
 }

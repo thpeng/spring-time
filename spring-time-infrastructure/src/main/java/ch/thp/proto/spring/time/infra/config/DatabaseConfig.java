@@ -43,7 +43,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
  * @author thierry
  */
 @Configuration
-@EnableTransactionManagement
+@EnableTransactionManagement(proxyTargetClass = true)
 @EnableJpaRepositories(basePackages = "ch.thp.proto.spring.time")
 @EnableMBeanExport
 public class DatabaseConfig {

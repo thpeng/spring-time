@@ -18,10 +18,9 @@ package ch.thp.proto.spring.time.stamp.dataloader;
 import ch.thp.proto.spring.time.infra.dataloader.DataLoader;
 import ch.thp.proto.spring.time.stamp.domain.Timesheet;
 import ch.thp.proto.spring.time.stamp.domain.TimesheetEntry;
-import static ch.thp.proto.spring.time.user.dataloader.UserLoader.USER_ID_DON;
+import ch.thp.proto.spring.time.stamp.domain.TimesheetId;
 import static ch.thp.proto.spring.time.user.dataloader.UserLoader.USER_ID_HEISENBERG;
 import static ch.thp.proto.spring.time.user.dataloader.UserLoader.USER_ID_NED;
-import ch.thp.proto.spring.time.user.domain.User;
 import java.time.Duration;
 import java.time.LocalDate;
 import java.util.HashSet;
@@ -29,12 +28,14 @@ import java.util.Set;
 import java.util.UUID;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
  *
  * @author Thierry
  */
+@Component
 public class TimesheetLoader implements DataLoader {
 
     @PersistenceContext
@@ -50,7 +51,7 @@ public class TimesheetLoader implements DataLoader {
                 "inspected the wall. still white"));
         entriesForNed.add(new TimesheetEntry(UUID.randomUUID().toString(), LocalDate.now().minusDays(1), Duration.ofHours(2),
                 "lost my head about something"));
-        Timesheet sheetNed = new Timesheet(UUID.randomUUID().toString(), USER_ID_NED, 24d, 0.8d, LocalDate.now().minusDays(1), entriesForNed);
+        Timesheet sheetNed = new Timesheet(new TimesheetId(), USER_ID_NED, 24d, 0.8d, LocalDate.now().minusDays(1), entriesForNed);
 
         Set<TimesheetEntry> entriesForHeisenberg = new HashSet<>();
         entriesForHeisenberg.add(new TimesheetEntry(UUID.randomUUID().toString(), LocalDate.now().minusDays(1), Duration.ofHours(8),
@@ -59,16 +60,16 @@ public class TimesheetLoader implements DataLoader {
                 "still cooking"));
         entriesForHeisenberg.add(new TimesheetEntry(UUID.randomUUID().toString(), LocalDate.now().minusDays(3), Duration.ofHours(8),
                 "cooking"));
-        Timesheet sheetHeisenberg = new Timesheet(UUID.randomUUID().toString(), USER_ID_HEISENBERG, 100, 1.0d, LocalDate.now().minusDays(3), entriesForHeisenberg);
+        Timesheet sheetHeisenberg = new Timesheet(new TimesheetId(), USER_ID_HEISENBERG, 100, 1.0d, LocalDate.now().minusDays(3), entriesForHeisenberg);
 
         Set<TimesheetEntry> entriesForDon = new HashSet<>();
-        entriesForHeisenberg.add(new TimesheetEntry(UUID.randomUUID().toString(), LocalDate.now().minusDays(1), Duration.ofHours(8),
+        entriesForDon.add(new TimesheetEntry(UUID.randomUUID().toString(), LocalDate.now().minusDays(1), Duration.ofHours(8),
                 "made a witty comment about the usefullness of my minions"));
         entriesForDon.add(new TimesheetEntry(UUID.randomUUID().toString(), LocalDate.now().minusDays(2), Duration.ofHours(4),
                 "fighting with betty"));
         entriesForDon.add(new TimesheetEntry(UUID.randomUUID().toString(), LocalDate.now().minusDays(2), Duration.ofHours(10),
                 "made overtime. a lot"));
-        Timesheet sheetDon = new Timesheet(UUID.randomUUID().toString(), USER_ID_HEISENBERG, 100, 1.0d, LocalDate.now().minusDays(2), entriesForDon);
+        Timesheet sheetDon = new Timesheet(new TimesheetId(), USER_ID_HEISENBERG, 100, 1.0d, LocalDate.now().minusDays(2), entriesForDon);
 
         em.persist(sheetNed);
         em.persist(sheetHeisenberg);

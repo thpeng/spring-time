@@ -7,6 +7,7 @@ package ch.thp.proto.spring.time.stamp.domain;
 
 import java.time.Duration;
 import java.time.LocalDate;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import lombok.AllArgsConstructor;
@@ -25,6 +26,7 @@ import org.hibernate.annotations.Type;
 public class TimesheetEntry {
 
     @Id
+    @Column(name="ID")
     private String uuId;
     
     @Type(type = "org.jadira.usertype.dateandtime.threeten.PersistentLocalDate")

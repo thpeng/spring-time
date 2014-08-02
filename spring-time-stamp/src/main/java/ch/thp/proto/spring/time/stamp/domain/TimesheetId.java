@@ -13,19 +13,31 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package ch.thp.proto.spring.time.stamp.domain;
 
-import ch.thp.proto.spring.time.user.domain.UserId;
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
+import java.io.Serializable;
+import java.util.UUID;
+import javax.persistence.Column;
+import javax.persistence.Embeddable;
+import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 /**
  *
  * @author Thierry
  */
-public interface TimesheetRepository extends JpaRepository<Timesheet, TimesheetId>{
-    
-    @Query("select e from Timesheet e where e.userId = ?1 ")
-    public Timesheet getByUserId(UserId userId);
+@Embeddable
+@Getter
+@EqualsAndHashCode
+@AllArgsConstructor
+public class TimesheetId implements Serializable{
+
+    @Column(name = "ID")
+    private String uuId;
+
+    public TimesheetId() {
+        uuId = UUID.randomUUID().toString();
+    }
 }
