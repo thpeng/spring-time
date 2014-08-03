@@ -49,14 +49,12 @@ public class TimesheetController {
     private TimesheetEntryService entryService;
 
     @RequestMapping( produces = MediaType.APPLICATION_JSON_VALUE, method = RequestMethod.GET)
-    public @ResponseBody
-    TimesheetOnlyModel getTimeSheetForUserId(@RequestParam(value = "user", required = true) String userId) {
+    public @ResponseBody TimesheetOnlyModel getTimeSheetForUserId(@RequestParam(value = "user", required = true) String userId) {
         return new TimesheetOnlyModel(sheetService.getTimesheetForUserId(new UserId(userId)));
     }
     
     @RequestMapping(value = "{id}/entry", produces = MediaType.APPLICATION_JSON_VALUE, method = RequestMethod.GET)
-    public @ResponseBody
-    Set<TimesheetEntry> getSheetEntries(@PathVariable(value = "id") String timesheetId) {
+    public @ResponseBody Set<TimesheetEntry> getSheetEntries(@PathVariable(value = "id") String timesheetId) {
         return entryService.getEntryForTimesheetId(new TimesheetId(timesheetId));
     }
 

@@ -28,6 +28,8 @@ import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
 /**
+ * Configures the MVC and the static Resources. Configuration for Spring-MVC contains
+ * the 310 Jackson Module (Support for java 8 time api)
  * @author thpeng
  */
 @Configuration

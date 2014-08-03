@@ -43,20 +43,17 @@ public class HelloWorldController {
     private HelloWorldRepository repo;
 
     @RequestMapping( produces = "text/plain", method = RequestMethod.GET)
-    public @ResponseBody
-    String sayHello() {
+    public @ResponseBody String sayHello() {
         return "oh, hi!";
     }
 
     @RequestMapping(value = "db/{name}", produces = MediaType.APPLICATION_JSON_VALUE, method = RequestMethod.GET)
-    public @ResponseBody
-    HelloWorld getOne(@PathVariable("name") String name) {
+    public @ResponseBody HelloWorld getOne(@PathVariable("name") String name) {
         return repo.getByName(name);
     }
     
     @RequestMapping(value = "db", produces = MediaType.APPLICATION_JSON_VALUE, method = RequestMethod.GET)
-    public @ResponseBody
-    List<HelloWorld> getAll() {
+    public @ResponseBody List<HelloWorld> getAll() {
         return repo.findAll();
     }
     
@@ -66,20 +63,17 @@ public class HelloWorldController {
     }
 
     @RequestMapping(value = "db", produces = MediaType.APPLICATION_JSON_VALUE, method = RequestMethod.POST)
-    public @ResponseBody
-    HelloWorld updateOne(@RequestBody() HelloWorld helloWorld) {
+    public @ResponseBody HelloWorld updateOne(@RequestBody() HelloWorld helloWorld) {
         return repo.save(helloWorld);
     }
 
     @RequestMapping(value = "db", produces = MediaType.APPLICATION_JSON_VALUE, method = RequestMethod.DELETE)
-    public @ResponseBody
-    void deleteOne(@RequestBody() HelloWorld helloWorld) {
+    public @ResponseBody void deleteOne(@RequestBody() HelloWorld helloWorld) {
         repo.delete(helloWorld);
     }
 
     @RequestMapping(value = "secure", produces = MediaType.TEXT_PLAIN_VALUE, method = RequestMethod.GET)
-    public @ResponseBody
-    String sayHelloWithAuth() {
+    public @ResponseBody String sayHelloWithAuth() {
         return "oh, hi basic auth!";
     }
 

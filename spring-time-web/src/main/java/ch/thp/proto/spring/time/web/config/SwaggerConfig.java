@@ -24,7 +24,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 
 /**
- *
+ * Configures Swagger. Is not directly related to the swagger-ui
  * @author thpeng
  */
 @Configuration

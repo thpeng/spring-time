@@ -39,7 +39,7 @@ import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 /**
- *
+ * defines and configures the database and the orm. 
  * @author thierry
  */
 @Configuration
@@ -50,18 +50,19 @@ public class DatabaseConfig {
 
     @Bean
     public DataSource dataSource(Environment env) throws Exception {
+        // h2 database is used. It works also with the oracle dialect.
         return new EmbeddedDatabaseBuilder().setType(H2).build();
     }
 
     @Inject
     @Bean
     public DataSourceInitializer dataSourceInitializer(final DataSource dataSource, List<DataLoader> loaders) {
-
+        //in this example we don't have a classic script based populator
         final DataSourceInitializer initializer = new DataSourceInitializer();
         initializer.setDataSource(dataSource);
         initializer.setDatabasePopulator(databasePopulator());
         initializer.setDatabaseCleaner(databaseCleaner());
-
+        //instead we use the dataloader
         loaders.stream().forEach((loader) -> {
             loader.load();
         });
@@ -114,6 +115,7 @@ public class DatabaseConfig {
         props.put("javax.persistence.schema-generation.scripts.action", "drop-and-create");
         props.put("javax.persistence.schema-generation.scripts.drop-target", "target/mydrop.ddl");
         props.put("javax.persistence.schema-generation.scripts.create-target", "target/mycreate.ddl");
+        //this naming strategy uses underscore instead of camelcase
         props.put("hibernate.ejb.naming_strategy", "org.hibernate.cfg.ImprovedNamingStrategy");
         return props;
     }
