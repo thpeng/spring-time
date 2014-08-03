@@ -1,4 +1,31 @@
 <div>
     Hello {{currentUser.user.loginId}} </br>
     Current userData: {{currentUser | json}}
+    
+    <h2>Userdata</h2>
+    <table>
+        <thead><tr><td>key</td><td>value</td></tr></thead>
+        <tbody>
+            <tr>
+                <td>email</td>
+                <td>{{currentUser.user.email}}</td>
+            </tr>
+             <tr>
+                <td>loginId</td>
+                <td>{{currentUser.user.loginId}}</td>
+            </tr>
+             <tr>
+                <td>userId</td>
+                <td>{{currentUser.user.userId.uuId}}</td>
+            </tr>
+             <tr>
+                <td>givenName</td>
+                <td>{{currentUser.user.givenName}}</td>
+            </tr>
+             <tr>
+                <td>familyName</td>
+                <td>{{currentUser.user.familyName}}</td>
+            </tr>
+        </tbody>
+    </table>
 </div>
