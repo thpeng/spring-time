@@ -21,6 +21,7 @@ import ch.thp.proto.spring.time.stamp.domain.TimesheetId;
 import java.util.Set;
 import javax.inject.Inject;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  *
@@ -33,7 +34,13 @@ public class TimesheetEntryService {
     private TimesheetService service; 
     
     //authorization done by the timesheetservice 
-    public Set<TimesheetEntry> getTimesheetByTimesheetId(TimesheetId id){
-        return service.getTimesheetByTimesheetId(id).getTimesheetEntries();
+    @Transactional
+    public Set<TimesheetEntry> getEntryForTimesheetId(TimesheetId id){
+        Set<TimesheetEntry> entries = service.getTimesheetByTimesheetId(id).getTimesheetEntries(); 
+        //to circumvent the lazyloading exception we have to initialize the bag inside of the transaction
+        entries.size();
+        //OSIV does not work with the javaconfig setup, and the hibernate4 module for jackson has still the same issue. 
+        //transactional on controller is also not a solution because the jackons library serialization comes after the commit
+        return entries;
     }
 }
