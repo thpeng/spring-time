@@ -32,6 +32,7 @@ angular.module('services.navigation', ['ui.router', 'services.authentication', '
                 $rootScope.savedState = {state: toState.name, params: toParams};
                 $state.go(NAVIGATION_CONFIG.loginState);
             } else {
+                console.debug(error); 
                 var message = error.data.message || '';
                 console.debug('error occured: '+message);
                 $state.go(NAVIGATION_CONFIG.errorState);
