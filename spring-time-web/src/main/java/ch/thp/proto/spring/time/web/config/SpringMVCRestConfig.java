@@ -16,6 +16,7 @@
 package ch.thp.proto.spring.time.web.config;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.datatype.jsr310.JSR310Module;
 import java.util.List;
 import org.springframework.context.annotation.Bean;
@@ -58,6 +59,7 @@ public class SpringMVCRestConfig extends WebMvcConfigurerAdapter {
     private ObjectMapper register310TimeModule() {
         ObjectMapper obj = new ObjectMapper();
         obj.registerModule(new JSR310Module());
+        obj.configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false);
         return obj; 
     }
 }
