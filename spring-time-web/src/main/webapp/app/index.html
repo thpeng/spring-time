@@ -28,8 +28,9 @@
                         </div>
                         <div class="col-md-2" ng-controller="LogoutCtrl">
                             <div ng-show="currentUser">
-                                <button type="button" class="btn btn-default btn-lg" ng-click="logout()">
-                                    <span class="glyphicon glyphicon-off"></span> Logout
+                                <span class="glyphicon glyphicon-user"></span>{{currentUser.user.loginId}}
+                                <button type="button" class="btn btn-default btn-sm" ng-click="logout()">
+                                    <span class="glyphicon glyphicon-off"></span> Logout    
                                 </button>
                             </div>
                         </div>

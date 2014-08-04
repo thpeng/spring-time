@@ -18,13 +18,13 @@ package ch.thp.proto.spring.time.web.resources;
 import ch.thp.proto.spring.time.user.UserService;
 import ch.thp.proto.spring.time.user.domain.User;
 import ch.thp.proto.spring.time.user.domain.UserId;
+import com.google.common.collect.Collections2;
 import com.wordnik.swagger.annotations.ApiOperation;
 import java.io.Serializable;
 import java.security.Principal;
 import java.util.Collection;
 import java.util.List;
 import javax.inject.Inject;
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import org.springframework.http.MediaType;
 import org.springframework.security.core.GrantedAuthority;
@@ -74,9 +74,13 @@ public class UserController {
     }
 
     @Data
-    @AllArgsConstructor
     static class UserWithAuthoritiesModel implements Serializable {
         User user;
-        Collection<? extends GrantedAuthority> roles;
+        Collection<String> roles;
+
+        private UserWithAuthoritiesModel(User userByLoginId, Collection<? extends GrantedAuthority> authorities) {
+            user = userByLoginId;
+            roles = Collections2.transform(authorities, (GrantedAuthority input) -> input.getAuthority());
         }
     }
+}
