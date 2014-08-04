@@ -17,7 +17,9 @@ angular.module('time', [
     'LocalStorageModule',
     'services.authentication',
     'services.navigation',
-    'services.navigation.config']
+    'services.navigation.config',
+    'services.timesheet',
+    'common.filters']
         )
         .config(function($stateProvider, $urlRouterProvider) {
 
@@ -35,8 +37,11 @@ angular.module('time', [
                 resolve: {
                     currentUser: function(AuthService) {
                         return AuthService.getCurrentUser();
+                    },
+                    timesheet: function(CurrentSheetService, currentUser)
+                    {
+                        return CurrentSheetService.loadSheet(currentUser);                        
                     }
-                   
                 }
             })
         });
