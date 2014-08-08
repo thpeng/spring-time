@@ -59,14 +59,17 @@ public class UserController {
     public @ResponseBody List<User> getAllUser() {
         return service.getAllUser();
     }
-    
+
     @RequestMapping(value= "{id}", produces = MediaType.APPLICATION_JSON_VALUE, method = RequestMethod.GET)
     public @ResponseBody User getOneUser(@PathVariable("id") String userId) {
         return service.getuser(new UserId(userId));
     }
-    
-    @RequestMapping(produces = MediaType.APPLICATION_JSON_VALUE, method = RequestMethod.POST)
-    public @ResponseBody User updateUser(@RequestBody() User user) {
+
+    @RequestMapping(value = "{id}",produces = MediaType.APPLICATION_JSON_VALUE, method = RequestMethod.PUT)
+    public @ResponseBody
+    User updateUser(@RequestBody() User user, @PathVariable("id") String userId) {
+        //userId is not really needed, but we break the $resource semantics if not included
+        //and its necessary for example with the delete (no body allowed with this operation)
         return service.updateUser(user);
     }
 
@@ -75,5 +78,5 @@ public class UserController {
     static class UserWithAuthoritiesModel implements Serializable {
         User user;
         Collection<? extends GrantedAuthority> roles;
+        }
     }
-}
