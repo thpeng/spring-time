@@ -7,3 +7,45 @@
     </div>
     <pre>{{selectedUser | json}}</pre>
 </div>
+
+<div class ="well">
+    <form class="form-horizontal" ng-submit="update(selectedUser)">
+        <fieldset>
+            <legend>User {{selectedUser.loginId}}</legend>  
+            <div class="form-group">
+                <label class="col-sm-3 control-label" for="loginId">LoginID</label>
+                <div class="col-sm-6">
+                    <input type="text" class="form-control" id="loginId"
+                           autofocus ng-model="selectedUser.loginId" required>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label" for="givenName">Given name</label>
+                <div class="col-sm-6">
+                    <input type="text" class="form-control" id="givenName"
+                           autofocus ng-model="selectedUser.givenName" required>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label" for="familyName">Family name</label>
+                <div class="col-sm-6">
+                    <input type="text" class="form-control" id="familyName"
+                           autofocus ng-model="selectedUser.familyName" required>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label" for="email">Email</label>
+                <div class="col-sm-6">
+                    <input type="email" class="form-control" id="email"
+                           autofocus ng-model="selectedUser.email" required>
+                </div>
+            </div>
+            <div class="form-actions">  
+
+                <button class="btn btn-lg btn-primary" type="submit">
+                    Update
+                </button>
+            </div>
+        </fieldset>
+    </form>
+</div>
