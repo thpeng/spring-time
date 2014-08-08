@@ -1,1 +1,9 @@
 <h1> hello Admin {{currentUser.user.loginId}}</h1>
+
+<div class="well">
+    <div class="form-group">
+        <label for="selectUser">Please choose a user </label>
+        <select ng-model="selectedUser" ng-options="item as item.loginId for item in users"></select>
+    </div>
+    <pre>{{selectedUser | json}}</pre>
+</div>

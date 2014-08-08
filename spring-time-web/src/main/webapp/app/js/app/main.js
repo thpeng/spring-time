@@ -14,12 +14,14 @@ angular.module('services.navigation.config')
 angular.module('time', [
     'ui.router',
     'ngCookies',
+    'ngResource',
     'LocalStorageModule',
     'services.authentication',
     'services.navigation',
     'services.navigation.config',
     'services.timesheet',
-    'common.filters']
+    'common.filters',
+    'resources.user']
         )
         .config(function($stateProvider, $urlRouterProvider) {
 
@@ -47,10 +49,14 @@ angular.module('time', [
                         url: '/admin',
                         templateUrl: 'partials/admin.html',
                         controller: 'AdminCtrl',
-                        resolve: {
+                        resolve: {  
                             currentUser: function(AuthService) {
                                 return AuthService.getCurrentUser();
-                    }
-                }
-            })
+                            },
+                            users : function(UserResource) {
+                                return UserResource.query().$promise; 
+                            }
+                        
+                        }
+                    })
         });
