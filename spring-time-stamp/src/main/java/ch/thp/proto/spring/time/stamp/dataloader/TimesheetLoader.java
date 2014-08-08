@@ -21,6 +21,7 @@ import ch.thp.proto.spring.time.stamp.domain.TimesheetEntry;
 import ch.thp.proto.spring.time.stamp.domain.TimesheetId;
 import static ch.thp.proto.spring.time.user.dataloader.UserLoader.USER_ID_HEISENBERG;
 import static ch.thp.proto.spring.time.user.dataloader.UserLoader.USER_ID_NED;
+import static ch.thp.proto.spring.time.user.dataloader.UserLoader.USER_ID_DON;
 import java.time.Duration;
 import java.time.LocalDate;
 import java.util.HashSet;
@@ -69,7 +70,7 @@ public class TimesheetLoader implements DataLoader {
                 "fighting with betty"));
         entriesForDon.add(new TimesheetEntry(UUID.randomUUID().toString(), LocalDate.now().minusDays(2), Duration.ofHours(10),
                 "made overtime. a lot"));
-        Timesheet sheetDon = new Timesheet(new TimesheetId(), USER_ID_HEISENBERG, 100, 1.0d, LocalDate.now().minusDays(2), entriesForDon);
+        Timesheet sheetDon = new Timesheet(new TimesheetId(), USER_ID_DON, 100, 1.0d, LocalDate.now().minusDays(2), entriesForDon);
 
         em.persist(sheetNed);
         em.persist(sheetHeisenberg);
