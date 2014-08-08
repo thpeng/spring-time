@@ -23,7 +23,7 @@
                                 <li><a href="#/dashboard"><span class="glyphicon glyphicon-dashboard"></span>  Dashboard</a></li>   <!-- removed class='active' -->
                                 <li><a href="#/stamp"><span class="glyphicon glyphicon-time"></span>  Zeit erfassen</a></li>
                                 <li><a href="#/holiday"><span class="glyphicon glyphicon-picture"></span>  Absenzen</a></li>
-                                <li><a href="#/admin"><span class="glyphicon glyphicon-list-alt"></span>  Admin</a></li>
+                                <li ng-show="currentUser.isAdmin()"><a href="#/admin"><span class="glyphicon glyphicon-list-alt"></span>  Admin</a></li>
                             </ul>
                         </div>
                         <div class="col-md-2" ng-controller="LogoutCtrl">
@@ -58,7 +58,8 @@
         <!-- main scripts-->
         <script src="js/app/main.js"></script>
         <script src="js/app/controllers/login.js"></script>
-         <script src="js/app/controllers/logout.js"></script>
+        <script src="js/app/controllers/logout.js"></script>
         <script src="js/app/controllers/dashboard.js"></script>
+         <script src="js/app/controllers/admin.js"></script>
     </body>
 </html>

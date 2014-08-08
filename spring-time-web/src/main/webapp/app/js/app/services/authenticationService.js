@@ -33,6 +33,9 @@ angular.module('services.authentication')
                 $http.get("../secure/user/current").then(
                     function (response) {
                         currentUser = response.data;
+                        currentUser.isAdmin = function(){
+                            return  currentUser.roles.indexOf("ROLE_ADMIN") !== -1; 
+                        };
                         $rootScope.currentUser = currentUser;
                         deferredUserFromApi.resolve(response.data);
                     }, function (error) {

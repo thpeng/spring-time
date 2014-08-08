@@ -31,16 +31,25 @@ angular.module('time', [
                         templateUrl: "partials/login.html",
                         controller: 'LoginCtrl'
                     }).state('dashboard', {
-                url: '/dashboard',
-                templateUrl: 'partials/dashboard.html',
-                controller: 'DashboardCtrl',
-                resolve: {
-                    currentUser: function(AuthService) {
-                        return AuthService.getCurrentUser();
-                    },
-                    timesheet: function(CurrentSheetService, currentUser)
-                    {
-                        return CurrentSheetService.loadSheet(currentUser);                        
+                        url: '/dashboard',
+                        templateUrl: 'partials/dashboard.html',
+                        controller: 'DashboardCtrl',
+                        resolve: {
+                            currentUser: function(AuthService) {
+                                return AuthService.getCurrentUser();
+                            },
+                            timesheet: function(CurrentSheetService, currentUser) {
+                                return CurrentSheetService.loadSheet(currentUser);                        
+                            }
+                        }
+                    })
+                    .state('admin', {
+                        url: '/admin',
+                        templateUrl: 'partials/admin.html',
+                        controller: 'AdminCtrl',
+                        resolve: {
+                            currentUser: function(AuthService) {
+                                return AuthService.getCurrentUser();
                     }
                 }
             })
