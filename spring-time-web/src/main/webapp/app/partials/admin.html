@@ -11,7 +11,8 @@
 <div class ="well">
     <form class="form-horizontal" ng-submit="update(selectedUser)">
         <fieldset>
-            <legend>User {{selectedUser.loginId}}</legend>  
+            <legend>User {{selectedUser.loginId}}</legend>
+            <alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</alert>
             <div class="form-group">
                 <label class="col-sm-3 control-label" for="loginId">LoginID</label>
                 <div class="col-sm-6">

@@ -21,7 +21,8 @@ angular.module('time', [
     'services.navigation.config',
     'services.timesheet',
     'common.filters',
-    'resources.user']
+    'resources.user',
+    'ui.bootstrap']
         )
         .config(function($stateProvider, $urlRouterProvider) {
 
