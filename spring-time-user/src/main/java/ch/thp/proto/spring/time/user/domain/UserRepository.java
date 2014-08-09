@@ -15,6 +15,7 @@
  */
 package ch.thp.proto.spring.time.user.domain;
 
+import java.util.Set;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
@@ -26,4 +27,7 @@ public interface UserRepository extends JpaRepository<User, UserId> {
 
     @Query("select u from User u where u.loginId = ?1 ")
     public User getByLoginId(String loginId);
+    
+//    @Query("select distinct u from User u where u.familiyName like ?1 or u.givenName like ?1 ")
+    public Set<User> findByFamilyNameContainingIgnoreCaseOrGivenNameContainingIgnoreCase(String familyName, String givenName);
 }

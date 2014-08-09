@@ -4,8 +4,20 @@
     <div class="form-group">
         <label for="selectUser">Please choose a user </label>
         <select ng-model="selectedUser" ng-options="item as item.loginId for item in users"></select>
-    </div>
-    <pre>{{selectedUser | json}}</pre>
+    </div>  
+    
+     <div class="form-group">
+        <label for="acUser">type a name</label>
+               <input id="acUser" type="text" autocomplete="off"  class="form-control"
+                               ng-model="selectedUser" 
+                               typeahead-min-length="1"
+                               typeahead="user as user.givenName + ' '+ user.familyName for user in getUsersAc($viewValue)" 
+                               typeahead-wait-ms="100"
+                               typeahead-loading="loadingLocations"
+                               />
+          <i ng-show="loadingLocations" class="glyphicon glyphicon-refresh"></i>
+    </div>    
+<pre>{{selectedUser | json}}</pre>
 </div>
 
 <div class ="well">

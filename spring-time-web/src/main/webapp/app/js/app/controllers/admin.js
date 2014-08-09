@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('time')
-    .controller('AdminCtrl', ['$scope', 'users', "UserResource", function ( $scope, users, UserResource) {
+    .controller('AdminCtrl', ['$http', '$scope', 'users', "UserResource", function ( $http, $scope, users, UserResource) {
             $scope.users = users; 
     
             $scope.update = function (
@@ -21,5 +21,19 @@ angular.module('time')
 
             $scope.closeAlert = function(index) {
                 $scope.alerts.splice(index, 1);
+            };
+            
+            $scope.getUsersAc = function(val) {
+                return $http.get('../secure/user/autocomplete', {
+                    params: {
+                        nameQuery: val
+                    }
+                }).then(function(res) {
+                    var acUsers = [];
+                    angular.forEach(res.data, function(item) {
+                        acUsers.push(item);
+                    });
+                    return acUsers;
+                });
             };
     }]);

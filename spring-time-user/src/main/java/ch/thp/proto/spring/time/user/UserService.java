@@ -20,6 +20,7 @@ import ch.thp.proto.spring.time.user.domain.User;
 import ch.thp.proto.spring.time.user.domain.UserId;
 import ch.thp.proto.spring.time.user.domain.UserRepository;
 import java.util.List;
+import java.util.Set;
 import javax.inject.Inject;
 import org.springframework.security.access.prepost.PostAuthorize;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -55,5 +56,9 @@ public class UserService {
     @PostAuthorize("returnObject.loginId == principal.username or hasRole('ROLE_ADMIN')")
     public User getuser(UserId id) {
         return repo.findOne(id); 
+    }
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    public Set<User> getUsersByFamilyOrGivenName(String familyOrGivenName) {
+        return repo.findByFamilyNameContainingIgnoreCaseOrGivenNameContainingIgnoreCase(familyOrGivenName, familyOrGivenName); 
     }
 }

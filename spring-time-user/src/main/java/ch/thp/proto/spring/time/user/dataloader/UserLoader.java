@@ -43,10 +43,12 @@ public class UserLoader implements DataLoader{
     public void load() {
         User ned = new User(USER_ID_NED,"ned", "Eddard", "stark", "stark@winterfell.cold");
         User heisenberg = new User(USER_ID_HEISENBERG,"heisenberg", "Walter", "White", "walter@breaking.bad");
+        User wernerHeisenberg = new User(new UserId("12345678"),"wheisenberg", "Werner", "Heisenberg", "heisenberg@uncertainty.com");
         User don = new User(USER_ID_DON, "don", "Donald", "Draper", "don@sterlingcooper.com");
 
         em.persist(ned);
         em.persist(heisenberg);
+        em.persist(wernerHeisenberg);
         em.persist(don);
     }
 }
