@@ -25,9 +25,14 @@ import java.time.LocalDate;
 import java.util.Set;
 import javax.inject.Inject;
 import lombok.Data;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -39,7 +44,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
  */
 @Controller
 @RequestMapping("secure/timesheet")
-
+@Slf4j
 public class TimesheetController {
 
     @Inject
@@ -53,9 +58,30 @@ public class TimesheetController {
         return new TimesheetOnlyModel(sheetService.getTimesheetForUserId(new UserId(userId)));
     }
     
-    @RequestMapping(value = "{id}/entry", produces = MediaType.APPLICATION_JSON_VALUE, method = RequestMethod.GET)
-    public @ResponseBody Set<TimesheetEntry> getSheetEntries(@PathVariable(value = "id") String timesheetId) {
+    @RequestMapping(value = "{tsid}/entry", produces = MediaType.APPLICATION_JSON_VALUE, method = RequestMethod.GET)
+    public @ResponseBody Set<TimesheetEntry> getSheetEntries(@PathVariable(value = "tsid") String timesheetId) {
         return entryService.getEntryForTimesheetId(new TimesheetId(timesheetId));
+    }
+    
+    @RequestMapping(value = "{tsid}/entry/{entryid}", produces = MediaType.APPLICATION_JSON_VALUE, method = RequestMethod.PUT)
+    public @ResponseBody TimesheetEntry updateEntry(@PathVariable(value = "tsid") String timesheetId, @RequestBody() TimesheetEntry entry) {
+        return entryService.updateEntry(new TimesheetId(timesheetId), entry);
+    }
+    
+    
+    @RequestMapping(value = "{tsid}/entry/{entryid}", produces = MediaType.APPLICATION_JSON_VALUE, method = RequestMethod.POST)
+    public @ResponseBody TimesheetEntry createEntry(@PathVariable(value = "tsid") String timesheetId,@RequestBody() TimesheetEntry entry) {
+        return entryService.createEntry(new TimesheetId(timesheetId), entry);
+    }
+    
+    @RequestMapping(value = "{tsid}/entry/{entryid}", produces = MediaType.APPLICATION_JSON_VALUE, method = RequestMethod.DELETE)
+    public ResponseEntity<?> deleteEntry(@PathVariable(value = "tsid") String timesheetId, @PathVariable("entryid") String entryId) {
+        try {
+            entryService.deleteEntry(new TimesheetId(timesheetId), entryId);
+        } catch (EmptyResultDataAccessException exc) {
+            log.debug("no entry found with id " + entryId);
+        }
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);        
     }
 
     /**

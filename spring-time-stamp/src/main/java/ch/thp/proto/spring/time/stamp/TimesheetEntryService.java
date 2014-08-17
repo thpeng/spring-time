@@ -17,9 +17,12 @@
 package ch.thp.proto.spring.time.stamp;
 
 import ch.thp.proto.spring.time.stamp.domain.TimesheetEntry;
+import ch.thp.proto.spring.time.stamp.domain.TimesheetEntryRepository;
 import ch.thp.proto.spring.time.stamp.domain.TimesheetId;
 import java.util.Set;
+import java.util.UUID;
 import javax.inject.Inject;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -33,6 +36,9 @@ public class TimesheetEntryService {
     @Inject
     private TimesheetService service; 
     
+    @Inject
+    private TimesheetEntryRepository repo; 
+    
     //authorization done by the timesheetservice 
     @Transactional
     public Set<TimesheetEntry> getEntryForTimesheetId(TimesheetId id){
@@ -42,5 +48,21 @@ public class TimesheetEntryService {
         //OSIV does not work with the javaconfig setup, and the hibernate4 module for jackson has still the same issue. 
         //transactional on controller is also not a solution because the jackons library serialization comes after the commit
         return entries;
+    }
+
+    @PreAuthorize("@timesheetAuthorizationService.isPrincipalOwnerOfTimesheet(principal.username, #timesheetId)")
+    public TimesheetEntry updateEntry(TimesheetId timesheetId, TimesheetEntry entry) {
+       return repo.save(entry);
+    }
+    
+    @PreAuthorize("@timesheetAuthorizationService.isPrincipalOwnerOfTimesheet(principal.username, #timesheetId)")
+    public TimesheetEntry createEntry(TimesheetId timesheetId, TimesheetEntry entry) {
+        entry.setUuId(UUID.randomUUID().toString());
+        return repo.save(entry);
+    }
+    
+    @PreAuthorize("@timesheetAuthorizationService.isPrincipalOwnerOfTimesheet(principal.username, #timesheetId)")
+    public void deleteEntry(TimesheetId timesheetId, String entryId) {
+        repo.delete(entryId);
     }
 }
