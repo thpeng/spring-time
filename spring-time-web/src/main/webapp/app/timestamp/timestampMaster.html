@@ -1,0 +1,12 @@
+<h2>Timesheet:</h2>
+    <table  class="table table-condensed">
+        <thead><tr><th>Date</th><th>Amount</th><th>Description</th><th>Control</th></tr></thead>
+        <tbody>
+            <tr data-ng-repeat="entry in entries">
+                <td>{{entry.entryDate | date}}</td>
+                <td>{{entry.duration | pretifyDuration}}</td>
+                 <td>{{entry.description}}</td>
+                 <td><a ng-href="#/stamp/{{entry.uuId}}">Edit</a>  <a ng-click="delete(entry)">Delete</a></td>
+            </tr>
+        </tbody>
+    </table>

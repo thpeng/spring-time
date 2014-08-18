@@ -1,0 +1,33 @@
+ <form class="form-horizontal" ng-submit="update(entry)">
+        <fieldset>
+            <legend>Timesheet of {{currentUser.user.loginId}}</legend>
+            <div class="form-group">
+                <label class="col-sm-3 control-label" for="entryDate">Date</label>
+                <div class="col-sm-6">
+                    <input type="text" class="form-control" id="entryDate"
+                           autofocus ng-model="entry.entryDate" required>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label" for="duration">Duration in hours</label>
+                <div class="col-sm-6">
+                    <input type="text" class="form-control" id="duration"
+                           autofocus ng-model="entry.duration" required>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label" for="description">Description</label>
+                <div class="col-sm-6">
+                    <textarea  class="form-control" id="description"
+                               autofocus ng-model="entry.description" required></textarea>
+                </div>
+            </div>
+            
+            <div class="form-actions">  
+
+                <button class="btn btn-lg btn-primary" type="submit">
+                    Update
+                </button>
+            </div>
+        </fieldset>
+    </form>

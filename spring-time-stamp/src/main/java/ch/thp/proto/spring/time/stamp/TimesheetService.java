@@ -44,7 +44,7 @@ public class TimesheetService {
         return repo.getByUserId(id);
     }
     
-    @PostAuthorize("@authorizationService.isPrincipalSameAsUser(principal.username, returnObject.userId)")
+    @PostAuthorize("returnObject == null or @authorizationService.isPrincipalSameAsUser(principal.username, returnObject.userId)")
     public Timesheet getTimesheetByTimesheetId(TimesheetId id){
         return repo.findOne(id);
     }

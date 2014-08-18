@@ -65,4 +65,9 @@ public class TimesheetEntryService {
     public void deleteEntry(TimesheetId timesheetId, String entryId) {
         repo.delete(entryId);
     }
+    
+    @PreAuthorize("@timesheetAuthorizationService.isPrincipalOwnerOfTimesheet(principal.username, #timesheetId)")
+    public TimesheetEntry getSingleEntry(TimesheetId timesheetId, String entryId) {
+        return repo.findOne(entryId);
+    }
 }

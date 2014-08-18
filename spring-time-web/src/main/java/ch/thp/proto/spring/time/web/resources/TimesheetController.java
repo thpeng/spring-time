@@ -68,6 +68,11 @@ public class TimesheetController {
         return entryService.updateEntry(new TimesheetId(timesheetId), entry);
     }
     
+    @RequestMapping(value = "{tsid}/entry/{entryid}", produces = MediaType.APPLICATION_JSON_VALUE, method = RequestMethod.GET)
+    public @ResponseBody TimesheetEntry getSingleEntry(@PathVariable(value = "tsid") String timesheetId, @PathVariable(value = "entryid") String entryId) {
+        return entryService.getSingleEntry(new TimesheetId(timesheetId), entryId);
+    }
+    
     
     @RequestMapping(value = "{tsid}/entry/{entryid}", produces = MediaType.APPLICATION_JSON_VALUE, method = RequestMethod.POST)
     public @ResponseBody TimesheetEntry createEntry(@PathVariable(value = "tsid") String timesheetId,@RequestBody() TimesheetEntry entry) {
