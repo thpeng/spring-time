@@ -14,6 +14,12 @@ angular.module('time.timestamp')
                     });
                 }; 
                 
+            $scope.open = function($event) {
+                $event.preventDefault();
+                $event.stopPropagation();
+                $scope.opened = true;
+            };
+                
                 
             
     }]);

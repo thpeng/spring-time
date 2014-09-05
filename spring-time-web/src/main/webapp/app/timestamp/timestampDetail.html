@@ -3,11 +3,16 @@
             <legend>Timesheet of {{currentUser.user.loginId}}</legend>
             <div class="form-group">
                 <label class="col-sm-3 control-label" for="entryDate">Date</label>
-                <div class="col-sm-6">
-                    <input type="text" class="form-control" id="entryDate"
-                           autofocus ng-model="entry.entryDate" required>
+                    <div class="col-md-6">
+                        <p class="input-group">
+                            <input type="text" class="form-control" id="entryDate"
+                                   autofocus ng-model="entry.entryDate" required is-open="opened" datepicker-popup datepicker-options="dateOptions">
+                             <span class="input-group-btn">
+                                <button type="button" class="btn btn-default" ng-click="open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+                            </span>
+                        </p>
+                    </div>
                 </div>
-            </div>
             <div class="form-group">
                 <label class="col-sm-3 control-label" for="duration">Duration in hours</label>
                 <div class="col-sm-6">
